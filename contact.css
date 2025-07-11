@@ -1,0 +1,203 @@
+/* Contact CSS - Untuk contact.html - Valmortheos Portfolio */
+
+.contact-container {
+    padding: 4rem 2rem;
+    max-width: 800px;
+    margin: 0 auto; /* Tengahkan konten */
+}
+
+.contact-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.contact-header h1 {
+    font-size: 2.8rem;
+    color: var(--secondary-color);
+    margin-bottom: 0.5rem;
+}
+
+.contact-header p {
+    font-size: 1.1rem;
+    color: #555555;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.contact-content {
+    display: grid;
+    grid-template-columns: 1fr; /* Default satu kolom */
+    gap: 3rem;
+}
+
+/* Styling untuk Form Kontak */
+.contact-form-section {
+    /* Efek Glassmorphism untuk Form */
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border: var(--glass-border);
+    padding: 2.5rem;
+    border-radius: 10px;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.08);
+}
+
+.contact-form-section h2 {
+    font-size: 1.8rem;
+    color: var(--secondary-color);
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    font-size: 0.95rem;
+    color: var(--secondary-color);
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group textarea {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-family: 'Roboto', sans-serif;
+    background-color: rgba(255, 255, 255, 0.8); /* Sedikit transparan untuk input */
+    color: var(--secondary-color);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-group input[type="text"]:focus,
+.form-group input[type="email"]:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--secondary-color); /* Warna border saat fokus */
+    box-shadow: 0 0 8px rgba(68, 68, 68, 0.15);
+}
+
+.form-group textarea {
+    min-height: 150px;
+    resize: vertical; /* Izinkan resize vertikal */
+}
+
+.submit-button {
+    display: block;
+    width: 100%;
+    padding: 0.9rem 1.5rem;
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+    border: none;
+    border-radius: 25px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.submit-button:hover {
+    background-color: #333333; /* Warna hover sedikit lebih gelap */
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+}
+
+/* Informasi Kontak Alternatif */
+.contact-info-section {
+    text-align: center;
+}
+
+.contact-info-section h2 {
+    font-size: 1.8rem;
+    color: var(--secondary-color);
+    margin-bottom: 1.5rem;
+}
+
+.contact-info-item {
+    margin-bottom: 1rem;
+}
+
+.contact-info-item i { /* Untuk ikon, jika digunakan */
+    font-size: 1.5rem;
+    color: var(--secondary-color);
+    margin-right: 0.5rem;
+    vertical-align: middle;
+}
+
+.contact-info-item a,
+.contact-info-item span {
+    font-size: 1.1rem;
+    color: var(--secondary-color);
+    vertical-align: middle;
+}
+
+.contact-info-item a:hover {
+    text-decoration: underline;
+}
+
+.social-links-contact {
+    margin-top: 1.5rem;
+}
+
+.social-links-contact a {
+    display: inline-block;
+    margin: 0 0.7rem;
+    font-size: 1.8rem; /* Ukuran ikon sosial */
+    color: var(--secondary-color);
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.social-links-contact a:hover {
+    transform: scale(1.2);
+    color: #333333; /* Warna ikon sosial saat hover */
+}
+
+/* Responsivitas untuk contact.css */
+@media screen and (max-width: 768px) {
+    .contact-container {
+        padding: 3rem 1.5rem;
+    }
+
+    .contact-header h1 {
+        font-size: 2.2rem;
+    }
+
+    .contact-form-section {
+        padding: 2rem;
+    }
+
+    .contact-form-section h2,
+    .contact-info-section h2 {
+        font-size: 1.6rem;
+    }
+}
+
+@media screen and (min-width: 769px) {
+    .contact-content {
+        grid-template-columns: 1.7fr 1fr; /* Form lebih lebar dari info kontak */
+        gap: 2.5rem;
+        align-items: start; /* Konten di atas akan sejajar */
+    }
+    .contact-info-section {
+        text-align: left; /* Sesuaikan text-align untuk info kontak */
+        /* padding-top: 1rem; */ /* Mungkin tidak perlu jika align-items:start */
+    }
+    .contact-info-section h2 {
+        text-align: left; /* Judul info kontak juga ke kiri */
+    }
+    .social-links-contact {
+        text-align: left; /* Link sosial juga ke kiri */
+    }
+    .social-links-contact a:first-child {
+        margin-left: 0; /* Hapus margin kiri untuk item pertama */
+    }
+}
