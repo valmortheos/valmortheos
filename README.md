@@ -4,10 +4,10 @@ Selamat datang di kode sumber untuk website portofolio Valmortheos. Website ini 
 
 ## Fitur Utama
 
-- **Desain Modern & Bersih**: Tata letak yang fokus pada keterbacaan dan estetika visual.
+- **Desain Modern & Minimalis**: Tata letak yang fokus pada keterbacaan dan estetika visual, dengan dominasi warna putih (mode terang) dan hitam (mode gelap), serta aksen warna biru elektrik.
 - **Mode Terang & Gelap**: Pengguna dapat beralih antara mode terang dan gelap. Preferensi disimpan di `localStorage` dan tema sistem juga dapat dideteksi sebagai default awal.
 - **Responsif**: Didesain agar terlihat baik di berbagai ukuran layar, mulai dari desktop hingga perangkat mobile.
-- **Placeholder Elemen 3D**: Area yang telah ditentukan di bagian hero untuk menampilkan model atau animasi 3D.
+- **Animasi SVG Scroll**: Efek visual 'cacing gambar' (path SVG) di bagian hero yang beranimasi (digambar) saat pengguna melakukan scroll.
 - **Smooth Scrolling**: Navigasi yang mulus antar bagian halaman.
 - **Navigasi Aktif**: Link navigasi secara otomatis menyorot bagian yang sedang dilihat.
 
@@ -42,124 +42,63 @@ Tidak ada langkah build atau dependensi server yang diperlukan untuk versi dasar
 
 ### 3. Mode Terang/Gelap
 
--   Warna untuk mode terang dan gelap didefinisikan sebagai variabel CSS di bagian atas `style.css` di dalam blok `:root {}` dan aturan untuk `body.dark-mode`.
+-   Warna untuk mode terang dan gelap telah diperbarui untuk tampilan yang lebih minimalis. Dominasi warna putih/abu-abu sangat terang untuk mode terang, dan hitam/abu-abu sangat gelap untuk mode gelap. Warna aksen utama adalah biru elektrik.
+-   Variabel warna didefinisikan di bagian atas `style.css` dalam blok `:root {}`.
     ```css
-    /* Variabel Warna Dasar (bisa dianggap default untuk light mode) */
+    /* Variabel Warna (Contoh) */
     :root {
-        --primary-color-light: #6a11cb;
-        --secondary-color-light: #2575fc;
-        --background-color-light: #f4f7f6;
-        --text-color-light: #333;
-        --card-bg-light: #ffffff;
-        --border-color-light: #e0e0e0;
+        /* Mode Terang */
+        --bg-color-light: #ffffff;
+        --text-color-light: #121212;
+        --accent-color-light: #007BFF;
+        /* ... variabel lainnya ... */
 
-        /* Definisikan juga variabel dark mode di sini agar mudah dilihat */
-        --primary-color-dark: #7f00ff;
-        --secondary-color-dark: #00bfff;
-        --background-color-dark: #1a1a2e;
-        --text-color-dark: #e0e0e0;
-        --card-bg-dark: #16213e;
-        --border-color-dark: #0f3460;
-    }
-
-    /* Mode Terang (Default) */
-    body.light-mode {
-        background-color: var(--background-color-light);
-        color: var(--text-color-light);
-        /* ... dan seterusnya untuk properti spesifik light mode yang menggunakan variabel light ... */
-    }
-
-    /* Mode Gelap */
-    body.dark-mode {
-        background-color: var(--background-color-dark);
-        color: var(--text-color-dark);
-        /* ... dan seterusnya untuk properti spesifik dark mode yang menggunakan variabel dark ... */
+        /* Mode Gelap */
+        --bg-color-dark: #121212;
+        --text-color-dark: #f5f5f5;
+        --accent-color-dark: #00BFFF;
+        /* ... variabel lainnya ... */
     }
     ```
--   Anda dapat mengubah nilai-nilai hex warna ini di dalam `:root` untuk menyesuaikan palet warna kedua mode. CSS kemudian akan secara otomatis menerapkan warna yang benar berdasarkan kelas `light-mode` atau `dark-mode` pada elemen `<body>`.
+-   Anda dapat mengubah nilai-nilai hex warna ini di dalam `:root` untuk menyesuaikan palet warna.
 
-### 4. Mengintegrasikan Elemen 3D
+### 4. Animasi SVG 'Cacing' pada Scroll
 
-Placeholder untuk elemen 3D ada di `index.html` dalam `<section id="hero">`:
-```html
-<div class="hero-3d-placeholder">
-    <p>Area untuk Elemen 3D</p>
-</div>
-```
-Anda dapat mengganti konten `<div class="hero-3d-placeholder">` dengan implementasi 3D Anda. Berikut beberapa opsi:
+Efek visual 'cacing gambar' diimplementasikan menggunakan SVG path animation yang dikontrol oleh JavaScript berdasarkan posisi scroll pengguna.
 
--   **Menggunakan Library JavaScript (Contoh: Three.js)**:
-    1.  Sertakan library Three.js di `index.html` (misalnya, melalui CDN).
-    2.  Tulis skrip JavaScript untuk merender scene 3D Anda di dalam elemen `hero-3d-placeholder`. Anda mungkin perlu menyesuaikan ukuran dan styling elemen ini.
-    3.  Contoh inisialisasi dasar Three.js:
-        ```html
-        <!-- Di dalam head atau sebelum </body> di index.html -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-        ```
-        ```javascript
-        // Di script.js atau skrip terpisah
-        const container = document.querySelector('.hero-3d-placeholder');
-        if (container) {
-            // Hapus teks placeholder jika ada
-            container.innerHTML = ''; // Bersihkan placeholder
+-   **HTML**: Sebuah elemen `<svg id="scroll-worm">` dengan sebuah `<path id="worm-path">... </path></svg>` ditempatkan di dalam `div.hero-3d-placeholder` pada `index.html`.
+    ```html
+    <div class="hero-3d-placeholder">
+        <svg id="scroll-worm" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet">
+            <path id="worm-path" d="M10,10 C20,20 40,20 50,10 S70,0 80,10 S100,20 90,50 S70,80 50,90 S20,100 10,90 S0,70 10,50 S30,20 20,10 Z" fill="none" stroke-width="2"/>
+        </svg>
+    </div>
+    ```
+-   **CSS**: Styling untuk `#scroll-worm` dan `#worm-path` ada di `style.css`. Ini mengatur bagaimana path SVG digambar (menggunakan `stroke-dasharray` dan `stroke-dashoffset`).
+    ```css
+    #worm-path {
+        stroke: var(--accent-color-light); /* Warna garis mengikuti tema */
+        stroke-dasharray: 1000; /* Akan diupdate oleh JS */
+        stroke-dashoffset: 1000; /* Akan diupdate oleh JS */
+        transition: stroke-dashoffset 0.1s linear, stroke 0.3s ease;
+    }
 
-            const scene = new THREE.Scene();
-            // Sesuaikan clientWidth dan clientHeight jika placeholder memiliki padding/border
-            const width = container.offsetWidth;
-            const height = container.offsetHeight;
-            const camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
-            const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+    body.dark-mode #worm-path {
+        stroke: var(--accent-color-dark);
+    }
+    ```
+-   **JavaScript**: Logika di `script.js` menangani:
+    -   Menghitung panjang aktual dari `#worm-path`.
+    -   Menginisialisasi `stroke-dasharray` dan `stroke-dashoffset` agar path tidak terlihat.
+    -   Mendengarkan event scroll window.
+    -   Memperbarui `stroke-dashoffset` berdasarkan seberapa jauh pengguna telah scroll di dalam `hero-section`, sehingga path tampak tergambar.
 
-            renderer.setSize(width, height);
-            renderer.setPixelRatio(window.devicePixelRatio); // Untuk tampilan lebih tajam di layar HiDPI
-            container.appendChild(renderer.domElement);
+**Kustomisasi Animasi SVG**:
+-   **Bentuk Path**: Anda dapat mengubah atribut `d` pada elemen `<path id="worm-path">` di `index.html` untuk membuat bentuk 'cacing' yang berbeda. Anda bisa menggunakan editor grafis vektor (seperti Inkscape atau Adobe Illustrator) untuk membuat path SVG kustom dan menyalin data path-nya.
+-   **Kecepatan Animasi**: Dalam `script.js`, pada fungsi `animateWormOnScroll`, baris `let drawLength = pathLength * scrollPercentage * 2;` mengontrol seberapa cepat path digambar. Angka `* 2` membuat animasi dua kali lebih cepat dari persentase scroll. Anda bisa menyesuaikan pengali ini.
+-   **Warna dan Ketebalan Garis**: Ubah properti `stroke` pada `#worm-path` di `style.css` (atau variabel aksen yang digunakannya) dan `stroke-width` pada elemen `<path>` di `index.html`.
 
-            // Tambahkan objek 3D Anda di sini
-            const geometry = new THREE.BoxGeometry(1, 1, 1); // Ukuran kubus
-            const material = new THREE.MeshPhongMaterial({ color: 0x00ff00, specular: 0x555555, shininess: 30 }); // Material dengan sedikit kilap
-            const cube = new THREE.Mesh(geometry, material);
-            scene.add(cube);
-
-            // Tambahkan pencahayaan
-            const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
-            scene.add(ambientLight);
-            const pointLight = new THREE.PointLight(0xffffff, 0.8);
-            camera.add(pointLight); // Cahaya mengikuti kamera
-            scene.add(camera); // Pastikan kamera ditambahkan ke scene jika cahaya adalah anaknya
-
-            camera.position.z = 3; // Posisikan kamera
-
-            function animate() {
-                requestAnimationFrame(animate);
-                cube.rotation.x += 0.005;
-                cube.rotation.y += 0.005;
-                renderer.render(scene, camera);
-            }
-            animate();
-
-            // Handle window resize
-            window.addEventListener('resize', () => {
-                const newWidth = container.offsetWidth;
-                const newHeight = container.offsetHeight;
-                camera.aspect = newWidth / newHeight;
-                camera.updateProjectionMatrix();
-                renderer.setSize(newWidth, newHeight);
-            }, false);
-        }
-        ```
-
--   **Menyematkan Model dari Platform (Contoh: Sketchfab)**:
-    1.  Unggah model 3D Anda ke Sketchfab atau platform serupa.
-    2.  Salin kode semat (biasanya iframe) yang disediakan.
-    3.  Tempel kode iframe tersebut ke dalam `<div class="hero-3d-placeholder">`, menggantikan paragraf `<p>`. Pastikan untuk menyesuaikan atribut `width` dan `height` iframe jika diperlukan, atau atur styling CSS agar responsif.
-        ```html
-        <div class="hero-3d-placeholder">
-            <iframe title="Judul Model Anda" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share width="100%" height="100%" src="URL_EMBED_SKETCHFAB_ANDA"></iframe>
-        </div>
-        ```
-        Anda mungkin perlu menambahkan CSS untuk `.hero-3d-placeholder iframe` agar `width` dan `height` 100% bekerja dengan benar relatif terhadap kontainer `.hero-3d-placeholder`.
-
--   **Animasi CSS 3D**: Untuk efek 3D yang lebih sederhana, Anda dapat menggunakan transformasi dan animasi CSS 3D secara langsung pada elemen HTML di dalam placeholder.
+Jika Anda ingin kembali ke placeholder 3D yang lebih generik atau menggunakan library seperti Three.js, Anda dapat menghapus atau mengomentari elemen `<svg id="scroll-worm">` dari `index.html` dan kode JavaScript terkait dari `script.js`, lalu mengikuti panduan integrasi Three.js atau Sketchfab dari versi README sebelumnya (jika masih relevan).
 
 ### 5. Formulir Kontak
 

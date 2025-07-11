@@ -98,4 +98,43 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // Animasi Cacing SVG saat Scroll
+    const wormPath = document.getElementById('worm-path');
+    if (wormPath) {
+        const pathLength = wormPath.getTotalLength();
+
+        // Inisialisasi path
+        wormPath.style.strokeDasharray = pathLength;
+        wormPath.style.strokeDashoffset = pathLength;
+
+        const heroSection = document.getElementById('hero');
+
+        function animateWormOnScroll() {
+            if (!heroSection) return;
+
+            const scrollPercentage = (window.scrollY / (heroSection.offsetHeight - window.innerHeight));
+            let drawLength = pathLength * scrollPercentage * 2; // Kalikan 2 agar lebih cepat tergambar
+
+            // Batasi drawLength agar tidak melebihi pathLength atau kurang dari 0
+            drawLength = Math.max(0, Math.min(drawLength, pathLength));
+
+            wormPath.style.strokeDashoffset = pathLength - drawLength;
+
+            // (Opsional) Efek tambahan, misalnya mengubah ketebalan stroke atau warna saat scroll
+            // const newStrokeWidth = 2 + (scrollPercentage * 3);
+            // wormPath.style.strokeWidth = Math.min(newStrokeWidth, 5);
+        }
+
+        // Panggil sekali di awal untuk set posisi jika sudah di-scroll
+        animateWormOnScroll();
+
+        window.addEventListener('scroll', () => {
+            // Hanya animasikan jika hero section terlihat atau hampir terlihat
+            // Ini adalah optimasi sederhana
+            const heroRect = heroSection.getBoundingClientRect();
+            if (heroRect.bottom > 0 && heroRect.top < window.innerHeight) {
+                animateWormOnScroll();
+            }
+        });
+    }
 });
