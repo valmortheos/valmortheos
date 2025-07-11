@@ -1,0 +1,227 @@
+/* Portfolio CSS - Untuk portfolio.html - Valmortheos Portfolio */
+
+.portfolio-container {
+    padding: 4rem 2rem;
+    max-width: 1300px; /* Lebar maksimal lebih besar untuk galeri */
+    margin: 0 auto;
+}
+
+.portfolio-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.portfolio-header h1 {
+    font-size: 2.8rem;
+    color: var(--secondary-color);
+    margin-bottom: 0.5rem;
+}
+
+.portfolio-header p {
+    font-size: 1.1rem;
+    color: #555555;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+/* Filter atau Kategori Proyek (Opsional) */
+.portfolio-filter {
+    text-align: center;
+    margin-bottom: 2.5rem;
+}
+
+.filter-btn {
+    background-color: transparent;
+    border: 1px solid var(--secondary-color);
+    color: var(--secondary-color);
+    padding: 0.6rem 1.2rem;
+    margin: 0 0.5rem;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+}
+
+.filter-btn:hover,
+.filter-btn.active { /* Kelas 'active' untuk filter yang dipilih */
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+}
+
+/* Grid untuk Proyek */
+.portfolio-grid {
+    display: grid;
+    /* grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); */
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Lebih fleksibel */
+    gap: 2rem;
+}
+
+.portfolio-item {
+    /* Efek Glassmorphism untuk Kartu Proyek */
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border: var(--glass-border);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.07);
+    transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+    display: flex;
+    flex-direction: column;
+}
+
+.portfolio-item:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.portfolio-item-image-container {
+    position: relative;
+    overflow: hidden;
+    height: 220px; /* Tinggi tetap untuk konsistensi */
+    background-color: #e9ecef; /* Placeholder background */
+}
+
+.portfolio-item-image-container img.placeholder-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+
+.portfolio-item:hover .portfolio-item-image-container img.placeholder-img {
+    transform: scale(1.05); /* Efek zoom pada gambar saat hover */
+}
+
+.portfolio-item-overlay { /* Overlay saat hover (opsional) */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(68, 68, 68, 0.3); /* Overlay gelap transparan */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.portfolio-item:hover .portfolio-item-overlay {
+    opacity: 1;
+}
+
+.overlay-link {
+    color: var(--primary-color);
+    font-size: 1.5rem;
+    padding: 0.8rem;
+    border: 2px solid var(--primary-color);
+    border-radius: 50%;
+    text-decoration: none;
+    /* Bisa menggunakan ikon di sini */
+}
+
+
+.portfolio-item-content {
+    padding: 1.5rem;
+    flex-grow: 1; /* Agar konten mengisi sisa ruang jika tinggi kartu bervariasi */
+    display: flex;
+    flex-direction: column;
+}
+
+.portfolio-item-content h3 {
+    font-size: 1.4rem;
+    margin-bottom: 0.5rem;
+    color: var(--secondary-color);
+}
+
+.portfolio-item-category {
+    font-size: 0.85rem;
+    color: #666666;
+    margin-bottom: 0.8rem;
+    font-style: italic;
+}
+
+.portfolio-item-description {
+    font-size: 0.95rem;
+    color: #444444;
+    margin-bottom: 1rem;
+    flex-grow: 1; /* Deskripsi mengambil ruang yang tersedia */
+    min-height: 50px; /* Minimal tinggi deskripsi */
+}
+
+.portfolio-item-tags {
+    margin-bottom: 1rem;
+}
+
+.tag {
+    display: inline-block;
+    background-color: #e9ecef;
+    color: var(--secondary-color);
+    padding: 0.3rem 0.7rem;
+    border-radius: 15px;
+    font-size: 0.75rem;
+    margin-right: 0.4rem;
+    margin-bottom: 0.4rem;
+}
+
+.portfolio-item-link {
+    display: inline-block;
+    align-self: flex-start; /* Tombol di kiri bawah kartu */
+    padding: 0.6rem 1.2rem;
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+    border: 1px solid var(--secondary-color);
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    margin-top: auto; /* Mendorong tombol ke bawah jika konten di atasnya pendek */
+}
+
+.portfolio-item-link:hover {
+    background-color: #333333;
+    border-color: #333333;
+    transform: translateY(-2px);
+}
+
+/* Responsivitas untuk portfolio.css */
+@media screen and (max-width: 992px) {
+    .portfolio-grid {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .portfolio-container {
+        padding: 3rem 1.5rem;
+    }
+
+    .portfolio-header h1 {
+        font-size: 2.2rem;
+    }
+
+    .portfolio-grid {
+        grid-template-columns: 1fr; /* Satu kolom di mobile */
+        gap: 1.5rem;
+    }
+
+    .portfolio-item-image-container {
+        height: 200px;
+    }
+
+    .filter-btn {
+        margin: 0.3rem;
+        padding: 0.5rem 1rem;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .portfolio-header p {
+        font-size: 1rem;
+    }
+    .portfolio-item-content h3 {
+        font-size: 1.2rem;
+    }
+}

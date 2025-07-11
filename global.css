@@ -1,0 +1,226 @@
+/* Global CSS - Valmortheos Portfolio */
+
+/* Reset Sederhana & Pengaturan Dasar */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    font-size: 16px; /* Basis font untuk unit rem */
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    line-height: 1.6;
+    background-color: #FFFFFF; /* Warna latar belakang utama PUTIH */
+    color: #444444; /* Warna teks utama */
+    overflow-x: hidden; /* Mencegah scroll horizontal yang tidak diinginkan */
+}
+
+/* Variabel Warna (jika diperlukan, namun sudah ditentukan di body) */
+:root {
+    --primary-color: #FFFFFF;
+    --secondary-color: #444444;
+    --accent-color: #007bff; /* Contoh warna aksen, bisa disesuaikan */
+    --glass-bg: rgba(255, 255, 255, 0.1); /* Latar belakang glassmorphism */
+    --glass-blur: 10px;
+    --glass-border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Utilitas Umum */
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px 0;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+a {
+    color: var(--secondary-color);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: var(--accent-color); /* Ganti dengan warna hover yang diinginkan */
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 700;
+    margin-bottom: 0.75em;
+    line-height: 1.2;
+}
+
+p {
+    margin-bottom: 1em;
+}
+
+ul {
+    list-style: none;
+}
+
+/* Header dan Navigasi Global */
+header {
+    position: fixed; /* Membuat header tetap di atas saat scroll */
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    padding: 1rem 5%; /* Padding atas bawah dan kiri kanan */
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border-bottom: var(--glass-border);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.logo {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--secondary-color);
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+}
+
+.nav-links li {
+    margin-left: 2rem;
+}
+
+.nav-links a {
+    font-size: 1rem;
+    font-weight: 400;
+    padding: 0.5rem 0.8rem;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.nav-links a:hover,
+.nav-links a.active { /* Kelas 'active' bisa ditambahkan via JS untuk halaman saat ini */
+    background-color: rgba(68, 68, 68, 0.1); /* Efek hover/aktif yang halus */
+    color: var(--secondary-color);
+}
+
+/* Burger Menu untuk Mobile */
+.burger {
+    display: none; /* Sembunyikan di desktop */
+    cursor: pointer;
+}
+
+.burger div {
+    width: 25px;
+    height: 3px;
+    background-color: var(--secondary-color);
+    margin: 5px;
+    transition: all 0.3s ease;
+}
+
+/* Footer Global */
+footer {
+    text-align: center;
+    padding: 2rem 1rem;
+    background-color: #f8f9fa; /* Warna latar footer yang sedikit berbeda */
+    color: var(--secondary-color);
+    border-top: 1px solid #e7e7e7;
+    margin-top: auto; /* Mendorong footer ke bawah jika konten sedikit */
+}
+
+/* Responsivitas Global */
+@media screen and (max-width: 768px) {
+    body {
+        font-size: 15px; /* Sedikit perkecil font di mobile */
+    }
+
+    .nav-links {
+        position: fixed;
+        right: -100%; /* Mulai dari luar layar */
+        top: 0; /* Atau sesuaikan dengan tinggi header */
+        height: 100vh;
+        background-color: var(--primary-color); /* Latar belakang menu mobile */
+        box-shadow: -5px 0 15px rgba(0,0,0,0.2);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-around; /* Menyebar link secara vertikal */
+        width: 60%; /* Lebar menu mobile */
+        transition: transform 0.5s ease-in-out;
+        padding-top: 5rem; /* Beri ruang untuk tombol close jika ada */
+        border-left: var(--glass-border);
+        /* Efek glass untuk menu mobile jika diinginkan */
+        background: rgba(255, 255, 255, 0.8);
+        backdrop-filter: blur(var(--glass-blur));
+        -webkit-backdrop-filter: blur(var(--glass-blur));
+    }
+
+    .nav-links.nav-active {
+        transform: translateX(-100%); /* Geser menu ke dalam layar */
+        right: 0; /* Pastikan menempel di kanan */
+    }
+
+    .nav-links li {
+        margin: 1.5rem 0; /* Jarak antar link di mobile */
+        opacity: 0; /* Untuk animasi fade-in */
+    }
+
+    /* Animasi untuk link saat menu mobile aktif */
+    .nav-links.nav-active li {
+        opacity: 1;
+        transition: opacity 0.3s ease forwards;
+    }
+    .nav-links.nav-active li:nth-child(1) { transition-delay: 0.2s; }
+    .nav-links.nav-active li:nth-child(2) { transition-delay: 0.3s; }
+    .nav-links.nav-active li:nth-child(3) { transition-delay: 0.4s; }
+    .nav-links.nav-active li:nth-child(4) { transition-delay: 0.5s; }
+    /* dst, jika ada lebih banyak link */
+
+
+    .burger {
+        display: block; /* Tampilkan burger di mobile */
+        z-index: 1001; /* Pastikan di atas nav-links sebelum aktif */
+    }
+}
+
+/* Animasi Burger menjadi X */
+.toggle .line1 {
+    transform: rotate(-45deg) translate(-5px, 6px);
+}
+
+.toggle .line2 {
+    opacity: 0;
+}
+
+.toggle .line3 {
+    transform: rotate(45deg) translate(-5px, -6px);
+}
+
+/* Pastikan body memiliki tinggi minimal untuk footer menempel di bawah pada halaman pendek */
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    flex: 1; /* Konten utama mengambil sisa ruang */
+    padding-top: 80px; /* Sesuaikan dengan tinggi header Anda */
+}

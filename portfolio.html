@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio Saya - Valmortheos</title>
+    <link rel="stylesheet" href="global.css">
+    <link rel="stylesheet" href="portfolio.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">Valmortheos</div>
+            <ul class="nav-links">
+                <li><a href="index.html">Beranda</a></li>
+                <li><a href="portfolio.html">Portfolio</a></li>
+                <li><a href="about.html">Tentang</a></li>
+                <li><a href="contact.html">Kontak</a></li>
+            </ul>
+            <div class="burger">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="portfolio-container">
+        <div class="portfolio-header">
+            <h1>Portfolio Saya</h1>
+            <p>Berikut adalah kumpulan proyek yang telah saya kerjakan, menampilkan berbagai keahlian dalam desain dan pengembangan.</p>
+        </div>
+
+        <div class="portfolio-filter">
+            <!-- Tombol filter akan di-generate oleh portfolio.js,
+                 tapi kita bisa tambahkan placeholder jika diperlukan untuk styling awal -->
+            <!-- <button class="filter-btn active" data-filter="semua">Semua</button> -->
+            <!-- <button class="filter-btn" data-filter="web-development">Web Development</button> -->
+            <!-- <button class="filter-btn" data-filter="ui-ux-design">UI/UX Design</button> -->
+        </div>
+
+        <div class="portfolio-grid">
+            <!-- Item portfolio akan di-generate oleh portfolio.js -->
+            <!-- Contoh item statis untuk styling (akan diganti oleh JS) -->
+            <article class="portfolio-item" data-category="web-development">
+                <div class="portfolio-item-image-container">
+                    <img src="https://placehold.co/600x400/444444/FFFFFF?text=Contoh+Proyek" alt="Contoh Proyek Web" class="placeholder-img">
+                    <div class="portfolio-item-overlay">
+                        <a href="#" class="overlay-link" target="_blank" title="Lihat Proyek">👁️</a>
+                    </div>
+                </div>
+                <div class="portfolio-item-content">
+                    <h3>Contoh Proyek Web Statis</h3>
+                    <p class="portfolio-item-category">Web Development</p>
+                    <p class="portfolio-item-description">Ini adalah deskripsi placeholder untuk item portofolio statis yang akan diganti oleh JavaScript.</p>
+                    <div class="portfolio-item-tags">
+                        <span class="tag">HTML</span>
+                        <span class="tag">CSS</span>
+                        <span class="tag">JavaScript</span>
+                    </div>
+                    <a href="#" class="portfolio-item-link" target="_blank">Lihat Detail</a>
+                </div>
+            </article>
+            <!-- Akhir contoh item statis -->
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Valmortheos. Semua hak dilindungi.</p>
+    </footer>
+
+    <script src="main.js"></script> <!-- main.js untuk fungsionalitas header/nav global -->
+    <script src="portfolio.js"></script>
+</body>
+</html>

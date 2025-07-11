@@ -1,0 +1,137 @@
+/* About CSS - Untuk about.html - Valmortheos Portfolio */
+
+.about-container {
+    padding: 4rem 2rem;
+    max-width: 900px;
+    margin: 0 auto; /* Tengahkan konten */
+    text-align: left;
+}
+
+.about-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.about-header h1 {
+    font-size: 2.8rem;
+    color: var(--secondary-color);
+    margin-bottom: 0.5rem;
+}
+
+.about-header .tagline {
+    font-size: 1.2rem;
+    color: #555555;
+    font-style: italic;
+}
+
+.about-content {
+    display: grid;
+    grid-template-columns: 1fr; /* Default satu kolom */
+    gap: 2.5rem;
+}
+
+.about-section {
+    /* Efek Glassmorphism untuk setiap bagian di halaman "Tentang" */
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border: var(--glass-border);
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.07);
+}
+
+.about-section h2 {
+    font-size: 1.8rem;
+    color: var(--secondary-color);
+    margin-bottom: 1rem;
+    border-bottom: 2px solid var(--secondary-color); /* Garis bawah judul bagian */
+    padding-bottom: 0.5rem;
+    display: inline-block; /* Agar border-bottom sesuai lebar teks */
+}
+
+.about-section p, .about-section ul {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: #444444;
+}
+
+.about-section ul {
+    list-style: disc; /* Ganti dengan ikon atau custom style jika perlu */
+    padding-left: 1.5rem; /* Indentasi untuk list */
+}
+
+.about-section ul li {
+    margin-bottom: 0.5rem;
+}
+
+/* Bagian Keahlian (Skills) */
+.skills-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+}
+
+.skill-tag {
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: transform 0.2s ease;
+}
+
+.skill-tag:hover {
+    transform: scale(1.05);
+}
+
+/* Bagian Foto Profil (jika ada) */
+.profile-picture-container {
+    text-align: center;
+    margin-bottom: 2rem; /* Atau sesuaikan penempatannya */
+}
+
+.profile-picture {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%; /* Membuat gambar bulat */
+    object-fit: cover;
+    border: 5px solid var(--primary-color);
+    box-shadow: 0 0 15px rgba(68, 68, 68, 0.2);
+    background-color: #e0e0e0; /* Placeholder jika gambar belum ada */
+}
+
+/* Responsivitas untuk about.css */
+@media screen and (max-width: 768px) {
+    .about-container {
+        padding: 3rem 1.5rem;
+    }
+
+    .about-header h1 {
+        font-size: 2.2rem;
+    }
+
+    .about-header .tagline {
+        font-size: 1.1rem;
+    }
+
+    .about-section h2 {
+        font-size: 1.6rem;
+    }
+
+    .profile-picture {
+        width: 150px;
+        height: 150px;
+    }
+}
+
+@media screen and (min-width: 769px) {
+    /* Contoh jika ingin 2 kolom di desktop untuk beberapa bagian */
+    /* .about-content-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+        align-items: start;
+    } */
+}
