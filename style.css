@@ -1,0 +1,387 @@
+/* Reset CSS Sederhana */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Variabel Warna */
+:root {
+    --primary-color-light: #6a11cb;
+    --secondary-color-light: #2575fc;
+    --background-color-light: #f4f7f6;
+    --text-color-light: #333;
+    --card-bg-light: #ffffff;
+    --border-color-light: #e0e0e0;
+
+    --primary-color-dark: #7f00ff;
+    --secondary-color-dark: #00bfff;
+    --background-color-dark: #1a1a2e;
+    --text-color-dark: #e0e0e0;
+    --card-bg-dark: #16213e;
+    --border-color-dark: #0f3460;
+}
+
+/* Mode Terang (Default) */
+body.light-mode {
+    background-color: var(--background-color-light);
+    color: var(--text-color-light);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Mode Gelap */
+body.dark-mode {
+    background-color: var(--background-color-dark);
+    color: var(--text-color-dark);
+}
+
+/* Header dan Navigasi */
+header {
+    background: linear-gradient(90deg, var(--primary-color-light), var(--secondary-color-light));
+    color: white;
+    padding: 1rem 5%;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+body.dark-mode header {
+    background: linear-gradient(90deg, var(--primary-color-dark), var(--secondary-color-dark));
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav .logo {
+    font-size: 1.8em;
+    font-weight: bold;
+}
+
+nav .nav-links {
+    list-style: none;
+    display: flex;
+}
+
+nav .nav-links li {
+    margin-left: 20px;
+}
+
+nav .nav-links a {
+    color: white;
+    text-decoration: none;
+    font-size: 1em;
+    padding: 0.5em 1em;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+nav .nav-links a:hover,
+nav .nav-links a.active {
+    background-color: rgba(255,255,255,0.2);
+}
+
+#theme-toggle {
+    padding: 0.5em 1em;
+    background-color: white;
+    color: var(--primary-color-light);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+body.dark-mode #theme-toggle {
+    background-color: var(--text-color-dark);
+    color: var(--primary-color-dark);
+}
+
+#theme-toggle:hover {
+    opacity: 0.9;
+}
+
+/* Main Content Padding */
+main {
+    padding-top: 80px; /* Sesuaikan dengan tinggi header */
+}
+
+/* Hero Section */
+.hero-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 4rem 5%;
+    min-height: calc(100vh - 80px); /* 80px adalah tinggi header */
+    background: var(--background-color-light);
+}
+body.dark-mode .hero-section {
+    background: var(--background-color-dark);
+}
+
+.hero-content {
+    max-width: 600px;
+}
+
+.hero-content h1 {
+    font-size: 3em;
+    margin-bottom: 1rem;
+    color: var(--primary-color-light);
+}
+body.dark-mode .hero-content h1 {
+    color: var(--primary-color-dark);
+}
+
+.hero-content p {
+    font-size: 1.2em;
+    margin-bottom: 2rem;
+    line-height: 1.6;
+}
+
+.cta-button {
+    background: linear-gradient(90deg, var(--primary-color-light), var(--secondary-color-light));
+    color: white;
+    padding: 1rem 2rem;
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: bold;
+    font-size: 1.1em;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: inline-block;
+}
+body.dark-mode .cta-button {
+    background: linear-gradient(90deg, var(--primary-color-dark), var(--secondary-color-dark));
+}
+
+.cta-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+.hero-3d-placeholder {
+    width: 300px;
+    height: 300px;
+    background-color: var(--border-color-light);
+    border: 2px dashed var(--primary-color-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border-radius: 10px;
+    color: var(--text-color-light);
+}
+body.dark-mode .hero-3d-placeholder {
+    background-color: var(--card-bg-dark);
+    border-color: var(--primary-color-dark);
+    color: var(--text-color-dark);
+}
+
+
+/* Content Sections */
+.content-section {
+    padding: 4rem 5%;
+    border-bottom: 1px solid var(--border-color-light);
+}
+body.dark-mode .content-section {
+    border-bottom: 1px solid var(--border-color-dark);
+}
+
+.content-section:last-child {
+    border-bottom: none;
+}
+
+.content-section h2 {
+    font-size: 2.5em;
+    margin-bottom: 2rem;
+    text-align: center;
+    color: var(--primary-color-light);
+}
+body.dark-mode .content-section h2 {
+    color: var(--primary-color-dark);
+}
+
+/* Project Grid */
+.project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.project-item {
+    background-color: var(--card-bg-light);
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid var(--border-color-light);
+}
+body.dark-mode .project-item {
+    background-color: var(--card-bg-dark);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    border: 1px solid var(--border-color-dark);
+}
+
+.project-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.12);
+}
+body.dark-mode .project-item:hover {
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+
+.project-item h3 {
+    font-size: 1.5em;
+    margin-bottom: 0.5rem;
+    color: var(--primary-color-light);
+}
+body.dark-mode .project-item h3 {
+    color: var(--primary-color-dark);
+}
+
+.project-item p {
+    font-size: 1em;
+    margin-bottom: 1rem;
+    line-height: 1.5;
+}
+
+.project-item a {
+    color: var(--secondary-color-light);
+    text-decoration: none;
+    font-weight: bold;
+}
+body.dark-mode .project-item a {
+    color: var(--secondary-color-dark);
+}
+
+.project-item a:hover {
+    text-decoration: underline;
+}
+
+/* Contact Form */
+#contact-form {
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: var(--card-bg-light);
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    border: 1px solid var(--border-color-light);
+}
+body.dark-mode #contact-form {
+    background-color: var(--card-bg-dark);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    border: 1px solid var(--border-color-dark);
+}
+
+#contact-form label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+}
+
+#contact-form input,
+#contact-form textarea {
+    width: 100%;
+    padding: 0.8rem;
+    margin-bottom: 1rem;
+    border: 1px solid var(--border-color-light);
+    border-radius: 5px;
+    background-color: var(--background-color-light);
+    color: var(--text-color-light);
+}
+body.dark-mode #contact-form input,
+body.dark-mode #contact-form textarea {
+    border-color: var(--border-color-dark);
+    background-color: var(--card-bg-dark); /* Slightly different from main dark bg for contrast */
+    color: var(--text-color-dark);
+}
+
+#contact-form button[type="submit"] {
+    background: linear-gradient(90deg, var(--primary-color-light), var(--secondary-color-light));
+    color: white;
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1em;
+    transition: opacity 0.3s ease;
+}
+body.dark-mode #contact-form button[type="submit"] {
+     background: linear-gradient(90deg, var(--primary-color-dark), var(--secondary-color-dark));
+}
+
+#contact-form button[type="submit"]:hover {
+    opacity: 0.9;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 2rem 5%;
+    background-color: #333; /* Footer color consistent for both modes or can be themed */
+    color: white;
+}
+body.dark-mode footer {
+    background-color: #111; /* Darker footer for dark mode */
+}
+
+footer p {
+    font-size: 0.9em;
+}
+
+/* Responsiveness */
+@media (max-width: 768px) {
+    nav .nav-links {
+        display: none; /* Sembunyikan untuk menu hamburger nanti, atau buat jadi kolom */
+        flex-direction: column;
+        width: 100%;
+        position: absolute;
+        top: 70px; /* Tinggi header */
+        left: 0;
+        background-color: var(--primary-color-light); /* Warna background dropdown */
+    }
+    body.dark-mode nav .nav-links {
+        background-color: var(--primary-color-dark);
+    }
+
+    nav .nav-links.active { /* Kelas untuk menampilkan menu */
+        display: flex;
+    }
+
+    nav .nav-links li {
+        margin: 0;
+        text-align: center;
+        padding: 1rem 0;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    nav .nav-links li:last-child {
+        border-bottom: none;
+    }
+
+    .hero-section {
+        flex-direction: column;
+        text-align: center;
+        padding-top: 2rem;
+        padding-bottom: 2rem;
+    }
+
+    .hero-content h1 {
+        font-size: 2.5em;
+    }
+    .hero-3d-placeholder {
+        margin-top: 2rem;
+        width: 250px;
+        height: 250px;
+    }
+
+    .project-grid {
+        grid-template-columns: 1fr; /* Satu kolom di layar kecil */
+    }
+}

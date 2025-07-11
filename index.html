@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valmortheos - Portofolio</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="light-mode">
+
+    <header>
+        <nav>
+            <div class="logo">Valmortheos</div>
+            <ul class="nav-links">
+                <li><a href="#hero">Beranda</a></li>
+                <li><a href="#about">Tentang Saya</a></li>
+                <li><a href="#projects">Proyek</a></li>
+                <li><a href="#contact">Kontak</a></li>
+            </ul>
+            <button id="theme-toggle">Mode Gelap</button>
+        </nav>
+    </header>
+
+    <main>
+        <section id="hero" class="hero-section">
+            <div class="hero-content">
+                <h1>Selamat Datang di Portofolio Saya</h1>
+                <p>Saya Valmortheos, seorang pengembang web dengan passion untuk menciptakan solusi digital yang inovatif dan menarik.</p>
+                <a href="#projects" class="cta-button">Lihat Proyek Saya</a>
+            </div>
+            <div class="hero-3d-placeholder">
+                <!-- Placeholder untuk elemen 3D -->
+                <p>Area untuk Elemen 3D</p>
+            </div>
+        </section>
+
+        <section id="about" class="content-section">
+            <h2>Tentang Saya</h2>
+            <p>Isi dengan deskripsi singkat tentang diri Anda, keahlian, pengalaman, dan minat Anda. Anda bisa menceritakan perjalanan karir Anda atau apa yang memotivasi Anda.</p>
+        </section>
+
+        <section id="projects" class="content-section">
+            <h2>Proyek Saya</h2>
+            <div class="project-grid">
+                <!-- Contoh item proyek -->
+                <div class="project-item">
+                    <h3>Nama Proyek 1</h3>
+                    <p>Deskripsi singkat proyek 1.</p>
+                    <a href="#">Lihat Detail</a>
+                </div>
+                <div class="project-item">
+                    <h3>Nama Proyek 2</h3>
+                    <p>Deskripsi singkat proyek 2.</p>
+                    <a href="#">Lihat Detail</a>
+                </div>
+                <div class="project-item">
+                    <h3>Nama Proyek 3</h3>
+                    <p>Deskripsi singkat proyek 3.</p>
+                    <a href="#">Lihat Detail</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="content-section">
+            <h2>Kontak</h2>
+            <p>Anda dapat menghubungi saya melalui formulir di bawah ini atau melalui media sosial.</p>
+            <form id="contact-form">
+                <label for="name">Nama:</label>
+                <input type="text" id="name" name="name" required>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+                <label for="message">Pesan:</label>
+                <textarea id="message" name="message" rows="5" required></textarea>
+                <button type="submit">Kirim Pesan</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Valmortheos. Dibuat dengan ❤️</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
