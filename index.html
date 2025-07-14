@@ -10,7 +10,10 @@
     <header>
         <nav>
             <div class="logo">Valmortheos</div>
-            <ul>
+            <div class="menu-toggle">
+                <div class="hamburger"></div>
+            </div>
+            <ul class="nav-links">
                 <li><a href="#about">About</a></li>
                 <li><a href="projects.html" data-target="projects-container">Projects</a></li>
                 <li><a href="contact.html" data-target="contact-container">Contact</a></li>
@@ -32,11 +35,11 @@
             <p>I'm a passionate creative developer and 3D artist with a love for building immersive and interactive web experiences. I'm always looking for new ways to push the boundaries of what's possible on the web.</p>
         </section>
 
-        <section id="projects-container">
+        <section id="projects-container" class="content-container">
             <!-- Projects will be loaded here -->
         </section>
 
-        <section id="contact-container">
+        <section id="contact-container" class="content-container">
             <!-- Contact will be loaded here -->
         </section>
     </main>
@@ -51,6 +54,7 @@
     </footer>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script type="module" src="three-scene.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
