@@ -9,7 +9,7 @@ menuToggle.addEventListener('click', () => {
 });
 
 // Smooth scrolling for navigation links
-document.querySelectorAll('nav a').forEach(anchor => {
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         e.preventDefault();
         navLinks.classList.remove('active');
@@ -18,20 +18,6 @@ document.querySelectorAll('nav a').forEach(anchor => {
             behavior: 'smooth'
         });
     });
-});
-
-// Intersection Observer for animations
-const sections = document.querySelectorAll('section');
-const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-        }
-    });
-}, { threshold: 0.1 });
-
-sections.forEach(section => {
-    observer.observe(section);
 });
 
 // Header scroll effect
@@ -43,6 +29,80 @@ window.addEventListener('scroll', () => {
     }
 });
 
+// Back to top button
+const backToTopButton = document.querySelector('.back-to-top');
+window.addEventListener('scroll', () => {
+    if (window.scrollY > 300) {
+        backToTopButton.classList.add('visible');
+    } else {
+        backToTopButton.classList.remove('visible');
+    }
+});
+
+// GSAP Animations
+gsap.registerPlugin(ScrollTrigger);
+
+// Hero animation
+gsap.from('.hero-content h1', { duration: 1, y: 50, opacity: 0, delay: 0.5 });
+gsap.from('.hero-content p', { duration: 1, y: 50, opacity: 0, delay: 0.8 });
+
+// Section animations
+document.querySelectorAll('section').forEach((section) => {
+    gsap.from(section, {
+        scrollTrigger: {
+            trigger: section,
+            start: 'top 80%',
+            end: 'bottom 20%',
+            toggleActions: 'play none none reverse',
+        },
+        opacity: 0,
+        y: 50,
+        duration: 1,
+    });
+});
+
+// Skill card animations
+gsap.from('.skill-card', {
+    scrollTrigger: {
+        trigger: '.skills-grid',
+        start: 'top 80%',
+    },
+    opacity: 0,
+    y: 50,
+    duration: 0.5,
+    stagger: 0.2,
+});
+
+// Project card animations
+gsap.from('.project-card', {
+    scrollTrigger: {
+        trigger: '.project-grid',
+        start: 'top 80%',
+    },
+    opacity: 0,
+    y: 50,
+    duration: 0.5,
+    stagger: 0.2,
+});
+
+// Testimonial slider
+const testimonials = document.querySelectorAll('.testimonial-card');
+let currentTestimonial = 0;
+
+function showTestimonial(index) {
+    testimonials.forEach((testimonial, i) => {
+        testimonial.classList.remove('active');
+        if (i === index) {
+            testimonial.classList.add('active');
+        }
+    });
+}
+
+setInterval(() => {
+    currentTestimonial = (currentTestimonial + 1) % testimonials.length;
+    showTestimonial(currentTestimonial);
+}, 5000);
+
 // Three.js scene setup
 const threeContainer = document.getElementById('three-container');
 const scene = new THREE.Scene();
@@ -53,13 +113,12 @@ renderer.setPixelRatio(window.devicePixelRatio);
 threeContainer.appendChild(renderer.domElement);
 
 // Create a more complex 3D object
-const geometry = new THREE.IcosahedronGeometry(1.5, 1);
+const geometry = new THREE.TorusKnotGeometry(1.2, 0.4, 100, 16);
 const material = new THREE.MeshStandardMaterial({
     color: 0x007BFF,
-    roughness: 0.2,
-    metalness: 0.8,
+    roughness: 0.1,
+    metalness: 0.9,
     emissive: 0x111111,
-    flatShading: true,
 });
 const shape = new THREE.Mesh(geometry, material);
 scene.add(shape);
@@ -78,17 +137,17 @@ camera.position.z = 5;
 
 // Particles setup
 const particlesGeometry = new THREE.BufferGeometry();
-const particlesCount = 7000;
+const particlesCount = 10000;
 const posArray = new Float32Array(particlesCount * 3);
 
 for (let i = 0; i < particlesCount * 3; i++) {
-    posArray[i] = (Math.random() - 0.5) * 15;
+    posArray[i] = (Math.random() - 0.5) * 20;
 }
 
 particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
 
 const particlesMaterial = new THREE.PointsMaterial({
-    size: 0.008,
+    size: 0.01,
     color: 0x6C757D,
     transparent: true,
     blending: THREE.AdditiveBlending,
@@ -104,12 +163,6 @@ document.addEventListener('mousemove', (event) => {
     mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
 });
 
-// Scroll interaction
-let scrollY = 0;
-window.addEventListener('scroll', () => {
-    scrollY = window.scrollY;
-});
-
 // Animation loop
 const clock = new THREE.Clock();
 function animate() {
@@ -117,19 +170,16 @@ function animate() {
     const elapsedTime = clock.getElapsedTime();
 
     // Animate shape
-    shape.rotation.x = 0.2 * elapsedTime;
-    shape.rotation.y = 0.2 * elapsedTime;
+    shape.rotation.x = 0.1 * elapsedTime;
+    shape.rotation.y = 0.1 * elapsedTime;
 
     // Animate particles
-    particlesMesh.rotation.y = -0.05 * elapsedTime;
+    particlesMesh.rotation.y = -0.02 * elapsedTime;
 
     // Mouse follow effect
-    camera.position.x += (mouseX * 2 - camera.position.x) * 0.05;
-    camera.position.y += (-mouseY * 2 - camera.position.y) * 0.05;
+    camera.position.x += (mouseX * 1.5 - camera.position.x) * 0.05;
+    camera.position.y += (-mouseY * 1.5 - camera.position.y) * 0.05;
     camera.lookAt(scene.position);
-
-    // Scroll effect
-    shape.position.y = scrollY * 0.001;
 
     renderer.render(scene, camera);
 }
