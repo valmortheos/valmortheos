@@ -12,27 +12,31 @@ function raf(time) {
 requestAnimationFrame(raf);
 
 // Loader animation
-const loaderText = document.querySelector('.loader-text');
-const text = loaderText.textContent;
-loaderText.innerHTML = '';
-text.split('').forEach((char, i) => {
-    const span = document.createElement('span');
-    span.textContent = char;
-    span.style.animationDelay = `${i * 0.1}s`;
-    loaderText.appendChild(span);
-});
+document.addEventListener("DOMContentLoaded", function() {
+    const loaderText = document.querySelector('.loader-text');
+    if (loaderText) {
+        const text = loaderText.textContent;
+        loaderText.innerHTML = '';
+        text.split('').forEach((char, i) => {
+            const span = document.createElement('span');
+            span.textContent = char;
+            span.style.animationDelay = `${i * 0.1}s`;
+            loaderText.appendChild(span);
+        });
+    }
 
-window.addEventListener('load', () => {
     const loader = document.getElementById('loader');
-    gsap.to(loader, {
-        duration: 1.5,
-        opacity: 0,
-        zIndex: -1,
-        delay: 2,
-        onComplete: () => {
-            document.body.style.overflowY = 'auto';
-        }
-    });
+    if (loader) {
+        gsap.to(loader, {
+            duration: 1.5,
+            opacity: 0,
+            zIndex: -1,
+            delay: 2,
+            onComplete: () => {
+                document.body.style.overflowY = 'auto';
+            }
+        });
+    }
 });
 
 
@@ -93,7 +97,7 @@ menuToggle.addEventListener('click', () => {
 });
 
 // Smooth scrolling for navigation links
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+document.querySelectorAll('.nav-links a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         e.preventDefault();
         navLinks.classList.remove('active');
@@ -113,13 +117,20 @@ window.addEventListener('scroll', () => {
 
 // Back to top button
 const backToTopButton = document.querySelector('.back-to-top');
-window.addEventListener('scroll', () => {
-    if (window.scrollY > 300) {
-        backToTopButton.classList.add('visible');
-    } else {
-        backToTopButton.classList.remove('visible');
-    }
-});
+if (backToTopButton) {
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 300) {
+            backToTopButton.classList.add('visible');
+        } else {
+            backToTopButton.classList.remove('visible');
+        }
+    });
+    backToTopButton.addEventListener('click', (e) => {
+        e.preventDefault();
+        lenis.scrollTo('#hero');
+    });
+}
+
 
 // GSAP Animations
 gsap.registerPlugin(ScrollTrigger);
@@ -219,10 +230,13 @@ function showTestimonial(index) {
     });
 }
 
-setInterval(() => {
-    currentTestimonial = (currentTestimonial + 1) % testimonials.length;
-    showTestimonial(currentTestimonial);
-}, 5000);
+if (testimonials.length > 0) {
+    setInterval(() => {
+        currentTestimonial = (currentTestimonial + 1) % testimonials.length;
+        showTestimonial(currentTestimonial);
+    }, 5000);
+}
+
 
 // Three.js scene setup
 const threeContainer = document.getElementById('three-container');
@@ -311,4 +325,44 @@ window.addEventListener('resize', () => {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
     renderer.setSize(window.innerWidth, window.innerHeight);
+});
+
+// Tilt effect for project cards
+const tiltElements = document.querySelectorAll('.project-card');
+
+tiltElements.forEach(el => {
+    el.addEventListener('mousemove', (e) => {
+        const { left, top, width, height } = el.getBoundingClientRect();
+        const x = (e.clientX - left) / width;
+        const y = (e.clientY - top) / height;
+        const rotateX = (y - 0.5) * -20;
+        const rotateY = (x - 0.5) * 20;
+        gsap.to(el, {
+            rotationX: rotateX,
+            rotationY: rotateY,
+            scale: 1.05,
+            duration: 0.5,
+            ease: 'power2.out',
+        });
+    });
+
+    el.addEventListener('mouseleave', () => {
+        gsap.to(el, {
+            rotationX: 0,
+            rotationY: 0,
+            scale: 1,
+            duration: 0.5,
+            ease: 'power2.out',
+        });
+    });
+});
+
+// Dark/Light mode toggle
+const toggleButton = document.createElement('button');
+toggleButton.textContent = 'Toggle Mode';
+toggleButton.classList.add('toggle-mode');
+document.body.appendChild(toggleButton);
+
+toggleButton.addEventListener('click', () => {
+    document.body.classList.toggle('light-mode');
 });
