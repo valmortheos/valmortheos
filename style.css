@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
 
 :root {
-    --primary-color: #8A2BE2;
+    --primary-color: #007BFF;
     --background-color: #121212;
     --text-color: #EAEAEA;
     --container-color: #1E1E1E;
@@ -22,8 +22,9 @@ header {
     right: 0;
     padding: 20px 50px;
     z-index: 1000;
-    background: rgba(0, 0, 0, 0.2);
+    background: rgba(255, 255, 255, 0.05);
     backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     transition: background 0.3s;
 }
 
@@ -255,7 +256,9 @@ footer {
 }
 
 .project-card {
-    background: var(--container-color);
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     padding: 30px;
     border-radius: 10px;
     transition: transform 0.3s, box-shadow 0.3s;
@@ -279,6 +282,33 @@ footer {
     color: var(--text-color);
     border-radius: 5px;
     text-decoration: none;
+}
+
+/* Skills Grid */
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 50px;
+}
+
+.skill-card {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 30px;
+    border-radius: 10px;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.skill-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.skill-card h3 {
+    margin-top: 0;
+    color: var(--primary-color);
 }
 
 /* Contact Form */

@@ -5,13 +5,15 @@ const renderer = new THREE.WebGLRenderer({ alpha: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.getElementById('three-container').appendChild(renderer.domElement);
 
-// Create a more complex 3D object
-const geometry = new THREE.TorusKnotGeometry(1, 0.3, 100, 16);
+// Create a crystal-like 3D object
+const geometry = new THREE.OctahedronGeometry(1.5, 0);
 const material = new THREE.MeshStandardMaterial({
-    color: 0x8A2BE2,
+    color: 0x007BFF,
     roughness: 0.1,
     metalness: 0.9,
-    emissive: 0x111111
+    emissive: 0x111111,
+    transparent: true,
+    opacity: 0.8,
 });
 const shape = new THREE.Mesh(geometry, material);
 scene.add(shape);
