@@ -49,9 +49,36 @@ document.addEventListener('mousemove', (e) => {
 links.forEach(link => {
     link.addEventListener('mouseenter', () => {
         gsap.to(cursor, { scale: 4 });
+        cursor.classList.add('hover');
     });
     link.addEventListener('mouseleave', () => {
         gsap.to(cursor, { scale: 1 });
+        cursor.classList.remove('hover');
+    });
+});
+
+// Magnetic effect on buttons
+document.querySelectorAll('button, .project-card a').forEach(button => {
+    button.addEventListener('mousemove', (e) => {
+        const { offsetX, offsetY, target } = e;
+        const { clientWidth, clientHeight } = target;
+        const x = (offsetX / clientWidth) - 0.5;
+        const y = (offsetY / clientHeight) - 0.5;
+        gsap.to(target, {
+            x: x * 20,
+            y: y * 20,
+            duration: 0.5,
+            ease: 'power2.out',
+        });
+    });
+
+    button.addEventListener('mouseleave', () => {
+        gsap.to(button, {
+            x: 0,
+            y: 0,
+            duration: 0.5,
+            ease: 'power2.out',
+        });
     });
 });
 
@@ -96,6 +123,32 @@ window.addEventListener('scroll', () => {
 
 // GSAP Animations
 gsap.registerPlugin(ScrollTrigger);
+
+// Text reveal animation for section titles
+document.querySelectorAll('h2').forEach(title => {
+    const text = title.textContent;
+    title.innerHTML = '';
+    text.split('').forEach(char => {
+        const span = document.createElement('span');
+        span.textContent = char;
+        span.className = 'char';
+        title.appendChild(span);
+    });
+
+    gsap.from(title.querySelectorAll('.char'), {
+        scrollTrigger: {
+            trigger: title,
+            start: 'top 80%',
+            end: 'bottom 20%',
+            toggleActions: 'play none none reverse',
+        },
+        y: '100%',
+        stagger: 0.05,
+        duration: 1,
+        ease: 'power3.out',
+    });
+});
+
 
 // Hero animation
 gsap.from('.hero-title', { duration: 1, y: 100, opacity: 0, delay: 2.5, ease: 'power3.out' });

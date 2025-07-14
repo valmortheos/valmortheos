@@ -66,7 +66,11 @@ body {
     pointer-events: none;
     transform: translate(-50%, -50%);
     z-index: 1001;
-    transition: scale 0.3s;
+    transition: scale 0.3s, background-color 0.3s;
+}
+
+.cursor.hover {
+    background-color: rgba(255, 255, 255, 0.5);
 }
 
 .cursor-follower {
@@ -78,6 +82,7 @@ body {
     pointer-events: none;
     transform: translate(-50%, -50%);
     z-index: 1001;
+    transition: transform 0.4s ease-out;
 }
 
 header {
@@ -194,6 +199,12 @@ h2 {
     font-size: 58px;
     margin-bottom: 50px;
     color: var(--primary-color);
+    overflow: hidden;
+}
+
+h2 .char {
+    display: inline-block;
+    transform: translateY(100%);
 }
 
 .project-grid, .skills-grid {
@@ -238,7 +249,7 @@ h2 {
     font-size: 24px;
 }
 
-.project-card a {
+.project-card a, button {
     display: inline-block;
     margin-top: 20px;
     padding: 12px 24px;
@@ -246,11 +257,14 @@ h2 {
     color: #fff;
     border-radius: 8px;
     text-decoration: none;
-    transition: background 0.3s;
+    transition: background 0.3s, transform 0.3s;
+    border: none;
+    cursor: none;
 }
 
-.project-card a:hover {
+.project-card a:hover, button:hover {
     background: #0056b3;
+    transform: translateY(-3px);
 }
 
 #testimonials {
@@ -311,23 +325,6 @@ input:focus, textarea:focus {
     outline: none;
     border-color: var(--primary-color);
     box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
-}
-
-button {
-    padding: 18px;
-    background: var(--primary-color);
-    color: #fff;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-family: var(--font-primary);
-    font-weight: 600;
-    transition: background 0.3s, transform 0.3s;
-}
-
-button:hover {
-    background: #0056b3;
-    transform: translateY(-3px);
 }
 
 .back-to-top {
@@ -526,6 +523,7 @@ footer {
     .nav-links li {
         opacity: 0;
         animation: navLinkFade 0.5s ease forwards;
+        margin: 10px 0;
     }
 
     .nav-links.active li:nth-child(1) { animation-delay: 0.2s; }
@@ -548,12 +546,12 @@ footer {
         padding: 15px 20px;
     }
 
-    h1 {
+    .hero-title {
         font-size: 14vw;
     }
 
     .hero-content p {
-        font-size: 5vw;
+        font-size: 4vw;
     }
 
     section {
@@ -569,5 +567,9 @@ footer {
         right: 20px;
         width: 40px;
         height: 40px;
+    }
+
+    .footer-content {
+        flex-direction: column;
     }
 }
