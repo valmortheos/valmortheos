@@ -11,6 +11,31 @@ function raf(time) {
 
 requestAnimationFrame(raf);
 
+// Loader animation
+const loaderText = document.querySelector('.loader-text');
+const text = loaderText.textContent;
+loaderText.innerHTML = '';
+text.split('').forEach((char, i) => {
+    const span = document.createElement('span');
+    span.textContent = char;
+    span.style.animationDelay = `${i * 0.1}s`;
+    loaderText.appendChild(span);
+});
+
+window.addEventListener('load', () => {
+    const loader = document.getElementById('loader');
+    gsap.to(loader, {
+        duration: 1.5,
+        opacity: 0,
+        zIndex: -1,
+        delay: 2,
+        onComplete: () => {
+            document.body.style.overflowY = 'auto';
+        }
+    });
+});
+
+
 // Custom cursor
 const cursor = document.querySelector('.cursor');
 const cursorFollower = document.querySelector('.cursor-follower');
@@ -73,8 +98,8 @@ window.addEventListener('scroll', () => {
 gsap.registerPlugin(ScrollTrigger);
 
 // Hero animation
-gsap.from('.hero-title', { duration: 1, y: 100, opacity: 0, delay: 0.5, ease: 'power3.out' });
-gsap.from('.hero-content p', { duration: 1, y: 100, opacity: 0, delay: 0.8, ease: 'power3.out' });
+gsap.from('.hero-title', { duration: 1, y: 100, opacity: 0, delay: 2.5, ease: 'power3.out' });
+gsap.from('.hero-content p', { duration: 1, y: 100, opacity: 0, delay: 2.8, ease: 'power3.out' });
 
 // Image distortion effect on scroll
 gsap.utils.toArray('.project-image').forEach(image => {
