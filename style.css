@@ -40,13 +40,13 @@ nav {
     color: var(--primary-color);
 }
 
-ul {
+.nav-links {
     display: flex;
     list-style: none;
     gap: 40px;
 }
 
-a {
+.nav-links a {
     color: var(--text-color);
     text-decoration: none;
     font-weight: 400;
@@ -54,7 +54,7 @@ a {
     transition: color 0.3s;
 }
 
-a::after {
+.nav-links a::after {
     content: '';
     position: absolute;
     width: 0;
@@ -65,11 +65,11 @@ a::after {
     transition: width 0.3s;
 }
 
-a:hover {
+.nav-links a:hover {
     color: var(--primary-color);
 }
 
-a:hover::after {
+.nav-links a:hover::after {
     width: 100%;
 }
 
@@ -117,16 +117,12 @@ section {
     text-align: center;
     background: var(--background-color);
     border-top: 1px solid var(--container-color);
-}
-
-#about, #projects-container, #contact-container {
-    min-height: 50vh;
     opacity: 0;
     transform: translateY(50px);
     transition: opacity 0.8s, transform 0.8s;
 }
 
-#about.visible, #projects-container.visible, #contact-container.visible {
+section.visible {
     opacity: 1;
     transform: translateY(0);
 }
@@ -195,67 +191,14 @@ footer {
     transform: rotate(-45deg) translate(5px, -5px);
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-    .menu-toggle {
-        display: block;
-    }
-
-    .nav-links {
-        display: none;
-        flex-direction: column;
-        width: 100%;
-        text-align: center;
-        background: rgba(0, 0, 0, 0.9);
-        position: absolute;
-        top: 60px;
-        left: 0;
-        padding: 20px 0;
-    }
-
-    .nav-links.active {
-        display: flex;
-    }
-
-    header {
-        padding: 15px 20px;
-    }
-
-    nav {
-        flex-direction: row;
-        justify-content: space-between;
-    }
-
-    ul {
-        gap: 20px;
-    }
-
-    h1 {
-        font-size: 12vw;
-    }
-
-    .hero-content p {
-        font-size: 4vw;
-    }
-
-    section {
-        padding: 80px 20px;
-    }
-
-    h2 {
-        font-size: 36px;
-    }
-}
-
-/* Project Grid */
-.project-grid {
+.project-grid, .skills-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 30px;
     margin-top: 50px;
 }
 
-.project-card {
+.project-card, .skill-card {
     background: rgba(255, 255, 255, 0.05);
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.1);
@@ -264,12 +207,12 @@ footer {
     transition: transform 0.3s, box-shadow 0.3s;
 }
 
-.project-card:hover {
+.project-card:hover, .skill-card:hover {
     transform: translateY(-10px);
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 
-.project-card h3 {
+.project-card h3, .skill-card h3 {
     margin-top: 0;
     color: var(--primary-color);
 }
@@ -284,34 +227,6 @@ footer {
     text-decoration: none;
 }
 
-/* Skills Grid */
-.skills-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
-    margin-top: 50px;
-}
-
-.skill-card {
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    padding: 30px;
-    border-radius: 10px;
-    transition: transform 0.3s, box-shadow 0.3s;
-}
-
-.skill-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-}
-
-.skill-card h3 {
-    margin-top: 0;
-    color: var(--primary-color);
-}
-
-/* Contact Form */
 form {
     display: flex;
     flex-direction: column;
@@ -338,4 +253,46 @@ button {
     cursor: pointer;
     font-family: 'Poppins', sans-serif;
     font-weight: 600;
+}
+
+@media (max-width: 768px) {
+    .menu-toggle {
+        display: block;
+    }
+
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        text-align: center;
+        background: rgba(0, 0, 0, 0.9);
+        position: absolute;
+        top: 60px;
+        left: 0;
+        padding: 20px 0;
+    }
+
+    .nav-links.active {
+        display: flex;
+    }
+
+    header {
+        padding: 15px 20px;
+    }
+
+    h1 {
+        font-size: 12vw;
+    }
+
+    .hero-content p {
+        font-size: 4vw;
+    }
+
+    section {
+        padding: 80px 20px;
+    }
+
+    h2 {
+        font-size: 36px;
+    }
 }
