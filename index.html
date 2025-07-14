@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Valmortheos - Creative Developer</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hover.css/2.3.1/css/hover-min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -16,15 +18,15 @@
 
     <header>
         <nav>
-            <div class="logo">Valmortheos</div>
+            <div class="logo hvr-grow">Valmortheos</div>
             <div class="menu-toggle">
                 <div class="hamburger"></div>
             </div>
             <ul class="nav-links">
-                <li><a href="#who-am-i" data-hover="Who Am I">Who Am I</a></li>
-                <li><a href="#projects" data-hover="Projects">Projects</a></li>
-                <li><a href="#testimonials" data-hover="Testimonials">Testimonials</a></li>
-                <li><a href="#contact" data-hover="Contact">Contact</a></li>
+                <li><a href="#who-am-i" class="hvr-underline-from-center">Who Am I</a></li>
+                <li><a href="#projects" class="hvr-underline-from-center">Projects</a></li>
+                <li><a href="#testimonials" class="hvr-underline-from-center">Testimonials</a></li>
+                <li><a href="#contact" class="hvr-underline-from-center">Contact</a></li>
             </ul>
         </nav>
     </header>
@@ -34,7 +36,7 @@
         <section id="hero">
             <div class="hero-content">
                 <h1 class="hero-title">Valmortheos</h1>
-                <p>Creative Developer & 3D Artist</p>
+                <p class="animate__animated animate__fadeInUp animate__delay-1s">Creative Developer & 3D Artist</p>
             </div>
         </section>
 
@@ -51,19 +53,19 @@
         <section id="my-skills">
             <h2>My Skills</h2>
             <div class="skills-grid">
-                <div class="skill-card">
+                <div class="skill-card hvr-float">
                     <h3>Frontend</h3>
                     <p>HTML5, CSS3, JavaScript (ES6+), React, Vue.js, Svelte</p>
                 </div>
-                <div class="skill-card">
+                <div class="skill-card hvr-float">
                     <h3>Backend</h3>
                     <p>Node.js, Express, Python, Django, MongoDB, PostgreSQL</p>
                 </div>
-                <div class="skill-card">
+                <div class="skill-card hvr-float">
                     <h3>3D Design</h3>
                     <p>Blender, Three.js, WebGL, Substance Painter</p>
                 </div>
-                 <div class="skill-card">
+                 <div class="skill-card hvr-float">
                     <h3>UI/UX Design</h3>
                     <p>Figma, Adobe XD, Sketch, User Research, Wireframing</p>
                 </div>
@@ -74,28 +76,36 @@
             <h2>My Projects</h2>
             <div class="project-grid">
                 <div class="project-card">
-                    <img src="https://via.placeholder.com/400x250" alt="Project 1" class="project-image">
+                    <div class="image-container">
+                        <img src="https://via.placeholder.com/400x250" alt="Project 1" class="project-image">
+                    </div>
                     <h3>Portfolio Website</h3>
                     <p>A personal portfolio website to showcase my skills and projects. Built with HTML, CSS, and JavaScript, and Three.js for 3D graphics. The goal was to create a visually appealing and interactive experience for visitors.</p>
-                    <a href="https://github.com/valmortheos/portfolio" target="_blank">View on GitHub</a>
+                    <a href="https://github.com/valmortheos/portfolio" target="_blank" class="hvr-sweep-to-right">View on GitHub</a>
                 </div>
                 <div class="project-card">
-                    <img src="https://via.placeholder.com/400x250" alt="Project 2" class="project-image">
+                    <div class="image-container">
+                        <img src="https://via.placeholder.com/400x250" alt="Project 2" class="project-image">
+                    </div>
                     <h3>E-commerce Website</h3>
                     <p>A full-stack e-commerce website built with the MERN stack. Features include product listings, shopping cart, user authentication, and payment integration with Stripe. The focus was on creating a seamless and secure shopping experience.</p>
-                    <a href="#" target="_blank">View Project</a>
+                    <a href="#" target="_blank" class="hvr-sweep-to-right">View Project</a>
                 </div>
                 <div class="project-card">
-                     <img src="https://via.placeholder.com/400x250" alt="Project 3" class="project-image">
+                    <div class="image-container">
+                        <img src="https://via.placeholder.com/400x250" alt="Project 3" class="project-image">
+                    </div>
                     <h3>Weather App</h3>
                     <p>A simple weather application that fetches and displays weather data from the OpenWeatherMap API. Built with React and styled with Styled Components, it provides real-time weather information for any city in the world.</p>
-                    <a href="#" target="_blank">View Project</a>
+                    <a href="#" target="_blank" class="hvr-sweep-to-right">View Project</a>
                 </div>
                  <div class="project-card">
-                     <img src="https://via.placeholder.com/400x250" alt="Project 4" class="project-image">
+                    <div class="image-container">
+                        <img src="https://via.placeholder.com/400x250" alt="Project 4" class="project-image">
+                    </div>
                     <h3>3D Product Visualizer</h3>
                     <p>An interactive 3D product visualizer built with Three.js and WebGL. Users can customize product colors, materials, and parts in real-time. This project demonstrates the power of 3D graphics on the web for e-commerce.</p>
-                    <a href="#" target="_blank">View Project</a>
+                    <a href="#" target="_blank" class="hvr-sweep-to-right">View Project</a>
                 </div>
             </div>
         </section>
@@ -125,12 +135,12 @@
                 <input type="text" name="name" placeholder="Your Name" required>
                 <input type="email" name="email" placeholder="Your Email" required>
                 <textarea name="message" placeholder="Your Message" required></textarea>
-                <button type="submit">Send Message</button>
+                <button type="submit" class="hvr-sweep-to-right">Send Message</button>
             </form>
         </section>
     </main>
 
-    <a href="#hero" class="back-to-top">Top</a>
+    <a href="#hero" class="back-to-top hvr-icon-up"></a>
 
     <footer>
         <div class="footer-content">
@@ -144,14 +154,14 @@
             <div class="footer-section links">
                 <h2>Quick Links</h2>
                 <ul>
-                    <li><a href="#who-am-i">Who Am I</a></li>
-                    <li><a href="#projects">Projects</a></li>
-                    <li><a href="#testimonials">Testimonials</a></li>
-                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="#who-am-i" class="hvr-forward">Who Am I</a></li>
+                    <li><a href="#projects" class="hvr-forward">Projects</a></li>
+                    <li><a href="#testimonials" class="hvr-forward">Testimonials</a></li>
+                    <li><a href="#contact" class="hvr-forward">Contact</a></li>
                 </ul>
             </div>
 
-            <div class="footer-section contact">
+            <div class="footer-section contact-info">
                 <h2>Contact Info</h2>
                 <span><i class="fas fa-phone"></i> +62-895-0407-4703</span>
                 <span><i class="fas fa-envelope"></i> valmortheos@gmail.com</span>
@@ -159,10 +169,10 @@
 
             <div class="footer-section socials">
                 <h2>Socials</h2>
-                <a href="#"><i class="fab fa-facebook"></i></a>
-                <a href="#"><i class="fab fa-instagram"></i></a>
-                <a href="#"><i class="fab fa-twitter"></i></a>
-                <a href="#"><i class="fab fa-youtube"></i></a>
+                <a href="#" class="hvr-wobble-vertical"><i class="fab fa-facebook"></i></a>
+                <a href="#" class="hvr-wobble-vertical"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="hvr-wobble-vertical"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="hvr-wobble-vertical"><i class="fab fa-youtube"></i></a>
             </div>
 
         </div>
@@ -177,6 +187,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.0/ScrollTrigger.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.27/bundled/lenis.min.js"></script>
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vivus@0.4.5/dist/vivus.min.js"></script>
     <script type="module" src="script.js"></script>
 </body>
 </html>

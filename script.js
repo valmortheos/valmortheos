@@ -34,6 +34,9 @@ document.addEventListener("DOMContentLoaded", function() {
             delay: 2,
             onComplete: () => {
                 document.body.style.overflowY = 'auto';
+                if (typeof Vivus !== 'undefined') {
+                    new Vivus('my-svg', {duration: 200});
+                }
             }
         });
     }
@@ -134,6 +137,16 @@ if (backToTopButton) {
 
 // GSAP Animations
 gsap.registerPlugin(ScrollTrigger);
+
+// Parallax scrolling for hero
+gsap.to('.hero-content', {
+    scrollTrigger: {
+        trigger: '#hero',
+        scrub: true,
+    },
+    y: '-50%',
+    ease: 'none',
+});
 
 // Text reveal animation for section titles
 document.querySelectorAll('h2').forEach(title => {
