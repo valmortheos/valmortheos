@@ -34,9 +34,6 @@ document.addEventListener("DOMContentLoaded", function() {
             delay: 2,
             onComplete: () => {
                 document.body.style.overflowY = 'auto';
-                if (typeof Vivus !== 'undefined') {
-                    new Vivus('my-svg', {duration: 200});
-                }
             }
         });
     }
@@ -44,25 +41,28 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 // Custom cursor
-const cursor = document.querySelector('.cursor');
-const cursorFollower = document.querySelector('.cursor-follower');
-const links = document.querySelectorAll('a, button');
+if (window.innerWidth > 768) {
+    const cursor = document.querySelector('.cursor');
+    const cursorFollower = document.querySelector('.cursor-follower');
+    const links = document.querySelectorAll('a, button');
 
-document.addEventListener('mousemove', (e) => {
-    gsap.to(cursor, { duration: 0.3, x: e.clientX, y: e.clientY });
-    gsap.to(cursorFollower, { duration: 0.8, x: e.clientX, y: e.clientY });
-});
+    document.addEventListener('mousemove', (e) => {
+        gsap.to(cursor, { duration: 0.3, x: e.clientX, y: e.clientY });
+        gsap.to(cursorFollower, { duration: 0.8, x: e.clientX, y: e.clientY });
+    });
 
-links.forEach(link => {
-    link.addEventListener('mouseenter', () => {
-        gsap.to(cursor, { scale: 4 });
-        cursor.classList.add('hover');
+    links.forEach(link => {
+        link.addEventListener('mouseenter', () => {
+            gsap.to(cursor, { scale: 4 });
+            cursor.classList.add('hover');
+        });
+        link.addEventListener('mouseleave', () => {
+            gsap.to(cursor, { scale: 1 });
+            cursor.classList.remove('hover');
+        });
     });
-    link.addEventListener('mouseleave', () => {
-        gsap.to(cursor, { scale: 1 });
-        cursor.classList.remove('hover');
-    });
-});
+}
+
 
 // Magnetic effect on buttons
 document.querySelectorAll('button, .project-card a').forEach(button => {
@@ -137,16 +137,6 @@ if (backToTopButton) {
 
 // GSAP Animations
 gsap.registerPlugin(ScrollTrigger);
-
-// Parallax scrolling for hero
-gsap.to('.hero-content', {
-    scrollTrigger: {
-        trigger: '#hero',
-        scrub: true,
-    },
-    y: '-50%',
-    ease: 'none',
-});
 
 // Text reveal animation for section titles
 document.querySelectorAll('h2').forEach(title => {
@@ -252,93 +242,97 @@ if (testimonials.length > 0) {
 
 
 // Three.js scene setup
-const threeContainer = document.getElementById('three-container');
-const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-renderer.setSize(window.innerWidth, window.innerHeight);
-renderer.setPixelRatio(window.devicePixelRatio);
-threeContainer.appendChild(renderer.domElement);
-
-// Create a more complex 3D object
-const geometry = new THREE.TorusKnotGeometry(1.2, 0.4, 150, 20);
-const material = new THREE.MeshStandardMaterial({
-    color: 0x007BFF,
-    roughness: 0.1,
-    metalness: 0.9,
-    emissive: 0x111111,
-});
-const shape = new THREE.Mesh(geometry, material);
-scene.add(shape);
-
-// Add lighting
-const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
-scene.add(ambientLight);
-const pointLight = new THREE.PointLight(0xffffff, 3);
-pointLight.position.set(5, 5, 5);
-scene.add(pointLight);
-const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
-directionalLight.position.set(-5, -5, -5);
-scene.add(directionalLight);
-
-camera.position.z = 5;
-
-// Particles setup
-const particlesGeometry = new THREE.BufferGeometry();
-const particlesCount = 10000;
-const posArray = new Float32Array(particlesCount * 3);
-
-for (let i = 0; i < particlesCount * 3; i++) {
-    posArray[i] = (Math.random() - 0.5) * 20;
-}
-
-particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
-
-const particlesMaterial = new THREE.PointsMaterial({
-    size: 0.01,
-    color: 0x6C757D,
-    transparent: true,
-    blending: THREE.AdditiveBlending,
-});
-
-const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
-scene.add(particlesMesh);
-
-// Mouse movement interaction
-let mouseX = 0, mouseY = 0;
-document.addEventListener('mousemove', (event) => {
-    mouseX = (event.clientX / window.innerWidth) * 2 - 1;
-    mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
-});
-
-// Animation loop
-const clock = new THREE.Clock();
-function animate() {
-    requestAnimationFrame(animate);
-    const elapsedTime = clock.getElapsedTime();
-
-    // Animate shape
-    shape.rotation.x = 0.1 * elapsedTime;
-    shape.rotation.y = 0.1 * elapsedTime;
-
-    // Animate particles
-    particlesMesh.rotation.y = -0.02 * elapsedTime;
-
-    // Mouse follow effect
-    camera.position.x += (mouseX * 1.5 - camera.position.x) * 0.05;
-    camera.position.y += (-mouseY * 1.5 - camera.position.y) * 0.05;
-    camera.lookAt(scene.position);
-
-    renderer.render(scene, camera);
-}
-animate();
-
-// Handle window resize
-window.addEventListener('resize', () => {
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
+if (window.innerWidth > 768) {
+    const threeContainer = document.getElementById('three-container');
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     renderer.setSize(window.innerWidth, window.innerHeight);
-});
+    renderer.setPixelRatio(window.devicePixelRatio);
+    threeContainer.appendChild(renderer.domElement);
+
+    // Create a more complex 3D object
+    const geometry = new THREE.TorusKnotGeometry(1.2, 0.4, 150, 20);
+    const material = new THREE.MeshStandardMaterial({
+        color: 0x007BFF,
+        roughness: 0.1,
+        metalness: 0.9,
+        emissive: 0x111111,
+    });
+    const shape = new THREE.Mesh(geometry, material);
+    scene.add(shape);
+
+    // Add lighting
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+    scene.add(ambientLight);
+    const pointLight = new THREE.PointLight(0xffffff, 3);
+    pointLight.position.set(5, 5, 5);
+    scene.add(pointLight);
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+    directionalLight.position.set(-5, -5, -5);
+    scene.add(directionalLight);
+
+    camera.position.z = 5;
+
+    // Particles setup
+    const particlesGeometry = new THREE.BufferGeometry();
+    const particlesCount = 5000;
+    const posArray = new Float32Array(particlesCount * 3);
+
+    for (let i = 0; i < particlesCount * 3; i++) {
+        posArray[i] = (Math.random() - 0.5) * 20;
+    }
+
+    particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+
+    const particlesMaterial = new THREE.PointsMaterial({
+        size: 0.01,
+        color: 0x6C757D,
+        transparent: true,
+        blending: THREE.AdditiveBlending,
+        sizeAttenuation: false,
+    });
+
+    const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
+    scene.add(particlesMesh);
+
+    // Mouse movement interaction
+    let mouseX = 0, mouseY = 0;
+    document.addEventListener('mousemove', (event) => {
+        mouseX = (event.clientX / window.innerWidth) * 2 - 1;
+        mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
+    });
+
+    // Animation loop
+    const clock = new THREE.Clock();
+    function animate() {
+        requestAnimationFrame(animate);
+        const elapsedTime = clock.getElapsedTime();
+
+        // Animate shape
+        shape.rotation.x = 0.1 * elapsedTime;
+        shape.rotation.y = 0.1 * elapsedTime;
+
+        // Animate particles
+        particlesMesh.rotation.y = -0.02 * elapsedTime;
+
+        // Mouse follow effect
+        camera.position.x += (mouseX * 1.5 - camera.position.x) * 0.05;
+        camera.position.y += (-mouseY * 1.5 - camera.position.y) * 0.05;
+        camera.lookAt(scene.position);
+
+        renderer.render(scene, camera);
+    }
+    animate();
+
+    // Handle window resize
+    window.addEventListener('resize', () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+}
+
 
 // Tilt effect for project cards
 const tiltElements = document.querySelectorAll('.project-card');
@@ -374,8 +368,36 @@ tiltElements.forEach(el => {
 const toggleButton = document.createElement('button');
 toggleButton.textContent = 'Toggle Mode';
 toggleButton.classList.add('toggle-mode');
+toggleButton.setAttribute('aria-label', 'Toggle dark/light mode');
 document.body.appendChild(toggleButton);
+
+const currentMode = localStorage.getItem('mode');
+if (currentMode === 'light') {
+    document.body.classList.add('light-mode');
+}
 
 toggleButton.addEventListener('click', () => {
     document.body.classList.toggle('light-mode');
+    localStorage.setItem('mode', document.body.classList.contains('light-mode') ? 'light' : 'dark');
+});
+
+// Form submission handling
+const form = document.querySelector('#contact form');
+form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const formData = new FormData(form);
+    const response = await fetch(form.action, {
+        method: 'POST',
+        body: formData,
+        headers: {
+            'Accept': 'application/json'
+        }
+    });
+
+    if (response.ok) {
+        Toastify({ text: "Message sent successfully!", duration: 3000 }).showToast();
+        form.reset();
+    } else {
+        Toastify({ text: "Failed to send message.", duration: 3000, style: { background: "linear-gradient(to right, #ff5f6d, #ffc371)" } }).showToast();
+    }
 });
