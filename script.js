@@ -1,3 +1,35 @@
+// Lenis smooth scroll
+const lenis = new Lenis({
+    duration: 1.2,
+    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+});
+
+function raf(time) {
+    lenis.raf(time);
+    requestAnimationFrame(raf);
+}
+
+requestAnimationFrame(raf);
+
+// Custom cursor
+const cursor = document.querySelector('.cursor');
+const cursorFollower = document.querySelector('.cursor-follower');
+const links = document.querySelectorAll('a, button');
+
+document.addEventListener('mousemove', (e) => {
+    gsap.to(cursor, { duration: 0.3, x: e.clientX, y: e.clientY });
+    gsap.to(cursorFollower, { duration: 0.8, x: e.clientX, y: e.clientY });
+});
+
+links.forEach(link => {
+    link.addEventListener('mouseenter', () => {
+        gsap.to(cursor, { scale: 4 });
+    });
+    link.addEventListener('mouseleave', () => {
+        gsap.to(cursor, { scale: 1 });
+    });
+});
+
 // Mobile menu toggle
 const menuToggle = document.querySelector('.menu-toggle');
 const navLinks = document.querySelector('.nav-links');
@@ -14,9 +46,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         e.preventDefault();
         navLinks.classList.remove('active');
         menuToggle.classList.remove('active');
-        document.querySelector(this.getAttribute('href')).scrollIntoView({
-            behavior: 'smooth'
-        });
+        lenis.scrollTo(this.getAttribute('href'));
     });
 });
 
@@ -43,8 +73,20 @@ window.addEventListener('scroll', () => {
 gsap.registerPlugin(ScrollTrigger);
 
 // Hero animation
-gsap.from('.hero-content h1', { duration: 1, y: 50, opacity: 0, delay: 0.5 });
-gsap.from('.hero-content p', { duration: 1, y: 50, opacity: 0, delay: 0.8 });
+gsap.from('.hero-title', { duration: 1, y: 100, opacity: 0, delay: 0.5, ease: 'power3.out' });
+gsap.from('.hero-content p', { duration: 1, y: 100, opacity: 0, delay: 0.8, ease: 'power3.out' });
+
+// Image distortion effect on scroll
+gsap.utils.toArray('.project-image').forEach(image => {
+    gsap.to(image, {
+        scrollTrigger: {
+            trigger: image,
+            scrub: true,
+        },
+        y: -100,
+        ease: 'none',
+    });
+});
 
 // Section animations
 document.querySelectorAll('section').forEach((section) => {
@@ -56,8 +98,9 @@ document.querySelectorAll('section').forEach((section) => {
             toggleActions: 'play none none reverse',
         },
         opacity: 0,
-        y: 50,
-        duration: 1,
+        y: 100,
+        duration: 1.5,
+        ease: 'power3.out',
     });
 });
 
@@ -113,7 +156,7 @@ renderer.setPixelRatio(window.devicePixelRatio);
 threeContainer.appendChild(renderer.domElement);
 
 // Create a more complex 3D object
-const geometry = new THREE.TorusKnotGeometry(1.2, 0.4, 100, 16);
+const geometry = new THREE.TorusKnotGeometry(1.2, 0.4, 150, 20);
 const material = new THREE.MeshStandardMaterial({
     color: 0x007BFF,
     roughness: 0.1,

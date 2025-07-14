@@ -22,6 +22,30 @@ body {
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    cursor: none;
+}
+
+.cursor {
+    position: fixed;
+    width: 20px;
+    height: 20px;
+    background-color: var(--primary-color);
+    border-radius: 50%;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    z-index: 1001;
+    transition: scale 0.3s;
+}
+
+.cursor-follower {
+    position: fixed;
+    width: 40px;
+    height: 40px;
+    border: 1px solid var(--primary-color);
+    border-radius: 50%;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    z-index: 1001;
 }
 
 header {
@@ -68,26 +92,22 @@ nav {
     position: relative;
     transition: color 0.3s;
     padding-bottom: 5px;
+    overflow: hidden;
 }
 
-.nav-links a::after {
-    content: '';
+.nav-links a::before {
+    content: attr(data-hover);
     position: absolute;
-    width: 0;
-    height: 2px;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: var(--primary-color);
-    transition: width 0.4s ease;
-}
-
-.nav-links a:hover {
-    color: var(--primary-color);
-}
-
-.nav-links a:hover::after {
+    top: 100%;
+    left: 0;
     width: 100%;
+    text-align: center;
+    transition: transform 0.4s;
+    transform: translateY(0);
+}
+
+.nav-links a:hover::before {
+    transform: translateY(-100%);
 }
 
 #hero {
@@ -113,12 +133,14 @@ nav {
     z-index: 1;
 }
 
-h1 {
+.hero-title {
     font-family: var(--font-secondary);
-    font-size: 9vw;
+    font-size: 10vw;
     font-weight: 700;
     margin: 0;
     letter-spacing: 2px;
+    line-height: 1;
+    overflow: hidden;
 }
 
 .hero-content p {
@@ -162,12 +184,18 @@ h2 {
     box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
 }
 
-.project-card img {
+.project-image {
     width: 100%;
     height: 250px;
     object-fit: cover;
     border-radius: 10px;
     margin-bottom: 20px;
+    filter: grayscale(100%);
+    transition: filter 0.5s;
+}
+
+.project-card:hover .project-image {
+    filter: grayscale(0%);
 }
 
 .project-card h3, .skill-card h3 {
@@ -364,6 +392,14 @@ footer {
 }
 
 @media (max-width: 768px) {
+    .cursor, .cursor-follower {
+        display: none;
+    }
+
+    body {
+        cursor: auto;
+    }
+
     .menu-toggle {
         display: block;
     }

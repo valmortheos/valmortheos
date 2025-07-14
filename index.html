@@ -7,6 +7,9 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div class="cursor"></div>
+    <div class="cursor-follower"></div>
+
     <header>
         <nav>
             <div class="logo">Valmortheos</div>
@@ -14,19 +17,19 @@
                 <div class="hamburger"></div>
             </div>
             <ul class="nav-links">
-                <li><a href="#who-am-i">Who Am I</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#testimonials">Testimonials</a></li>
-                <li><a href="#contact">Contact</a></li>
+                <li><a href="#who-am-i" data-hover="Who Am I">Who Am I</a></li>
+                <li><a href="#projects" data-hover="Projects">Projects</a></li>
+                <li><a href="#testimonials" data-hover="Testimonials">Testimonials</a></li>
+                <li><a href="#contact" data-hover="Contact">Contact</a></li>
             </ul>
         </nav>
     </header>
 
-    <main>
+    <main id="smooth-scroll">
         <section id="hero">
             <div id="three-container"></div>
             <div class="hero-content">
-                <h1>Valmortheos</h1>
+                <h1 class="hero-title">Valmortheos</h1>
                 <p>Creative Developer & 3D Artist</p>
             </div>
         </section>
@@ -67,25 +70,25 @@
             <h2>My Projects</h2>
             <div class="project-grid">
                 <div class="project-card">
-                    <img src="https://via.placeholder.com/400x250" alt="Project 1">
+                    <img src="https://via.placeholder.com/400x250" alt="Project 1" class="project-image">
                     <h3>Portfolio Website</h3>
                     <p>A personal portfolio website to showcase my skills and projects. Built with HTML, CSS, and JavaScript, and Three.js for 3D graphics. The goal was to create a visually appealing and interactive experience for visitors.</p>
                     <a href="https://github.com/valmortheos/portfolio" target="_blank">View on GitHub</a>
                 </div>
                 <div class="project-card">
-                    <img src="https://via.placeholder.com/400x250" alt="Project 2">
+                    <img src="https://via.placeholder.com/400x250" alt="Project 2" class="project-image">
                     <h3>E-commerce Website</h3>
                     <p>A full-stack e-commerce website built with the MERN stack. Features include product listings, shopping cart, user authentication, and payment integration with Stripe. The focus was on creating a seamless and secure shopping experience.</p>
                     <a href="#" target="_blank">View Project</a>
                 </div>
                 <div class="project-card">
-                     <img src="https://via.placeholder.com/400x250" alt="Project 3">
+                     <img src="https://via.placeholder.com/400x250" alt="Project 3" class="project-image">
                     <h3>Weather App</h3>
                     <p>A simple weather application that fetches and displays weather data from the OpenWeatherMap API. Built with React and styled with Styled Components, it provides real-time weather information for any city in the world.</p>
                     <a href="#" target="_blank">View Project</a>
                 </div>
                  <div class="project-card">
-                     <img src="https://via.placeholder.com/400x250" alt="Project 4">
+                     <img src="https://via.placeholder.com/400x250" alt="Project 4" class="project-image">
                     <h3>3D Product Visualizer</h3>
                     <p>An interactive 3D product visualizer built with Three.js and WebGL. Users can customize product colors, materials, and parts in real-time. This project demonstrates the power of 3D graphics on the web for e-commerce.</p>
                     <a href="#" target="_blank">View Project</a>
@@ -135,8 +138,9 @@
     </footer>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.0/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.0/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.27/bundled/lenis.min.js"></script>
     <script type="module" src="script.js"></script>
 </body>
 </html>
