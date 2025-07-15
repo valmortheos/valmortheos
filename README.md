@@ -1,11 +1,31 @@
-# Hey, I'm Valmortheos 👋
+# Valmortheos - Creative Developer Portfolio
 
-### A Creative Coder and Lifelong Learner.
+This is the repository for my personal portfolio website, showcasing my skills and projects as a creative developer and 3D artist. The site is built with pure HTML, CSS, and JavaScript, and features a variety of modern web technologies and animations.
 
----
+## ✨ Features
 
-## 🤔 The Gist (Who Am I?)
+*   **Immersive 3D animations** using Three.js and WebGL.
+*   **Smooth scrolling** with Lenis for a seamless browsing experience.
+*   **Advanced animations** powered by GSAP and ScrollTrigger.
+*   **Responsive design** that looks great on all devices.
+*   **Custom cursor** and magnetic effects for a unique interactive experience.
+*   **Dark/Light mode** toggle for user preference.
+*   **Contact form** with Formspree integration.
 
-You've landed in my digital sandbox. This is my corner of the internet where I build stuff, break it down, and try to figure out what makes it all tick. I'm driven by a need to peel back the layers of any system—be it code, language, or a creative framework.
+## 🚀 Technologies Used
 
-I'm all about finding the hidden threads that connect seemingly random domains. My whole deal is mashing up hard logic with a bit of creative chaos to build something new and hopefully, something cool.
+*   **HTML5**
+*   **CSS3**
+*   **JavaScript (ES6+)**
+*   **Three.js**
+*   **GSAP (GreenSock Animation Platform)**
+*   **Lenis**
+*   **Toastify.js**
+
+## 🛠️ Getting Started
+
+To get a local copy up and running, simply open the `index.html` file in your web browser. No installation or build process is required.
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
