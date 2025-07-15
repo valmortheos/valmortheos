@@ -335,14 +335,15 @@
         renderer.setPixelRatio(window.devicePixelRatio);
         threeContainer.appendChild(renderer.domElement);
 
-        const geometry = new THREE.TorusKnotGeometry(1.2, 0.4, 150, 20);
+        const geometry = new THREE.IcosahedronGeometry(1.5, 0);
         const material = new THREE.MeshStandardMaterial({
-            color: 0x007BFF,
-            roughness: 0.1,
-            metalness: 0.9,
-            emissive: 0x111111,
+            color: 0xffffff,
+            roughness: 0.2,
+            metalness: 0.8,
+            flatShading: true,
         });
         const shape = new THREE.Mesh(geometry, material);
+        window.threeShapeMaterial = material;
         scene.add(shape);
 
         const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
@@ -367,20 +368,22 @@
         particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
 
         const particlesMaterial = new THREE.PointsMaterial({
-            size: 0.01,
-            color: 0x6C757D,
+            size: 0.02,
+            color: 0x007BFF,
             transparent: true,
             blending: THREE.AdditiveBlending,
-            sizeAttenuation: false,
+            sizeAttenuation: true,
         });
 
         const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
+        window.threeParticlesMaterial = particlesMaterial;
         scene.add(particlesMesh);
 
-        let mouseX = 0, mouseY = 0;
-        document.addEventListener('mousemove', (event) => {
-            mouseX = (event.clientX / window.innerWidth) * 2 - 1;
-            mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
+        window.addEventListener('scroll', () => {
+            const scrollY = window.scrollY;
+            shape.rotation.x = scrollY * 0.001;
+            shape.rotation.y = scrollY * 0.001;
+            particlesMesh.rotation.y = -scrollY * 0.0005;
         });
 
         const clock = new THREE.Clock();
@@ -388,14 +391,8 @@
             requestAnimationFrame(animate);
             const elapsedTime = clock.getElapsedTime();
 
-            shape.rotation.x = 0.1 * elapsedTime;
-            shape.rotation.y = 0.1 * elapsedTime;
-
-            particlesMesh.rotation.y = -0.02 * elapsedTime;
-
-            camera.position.x += (mouseX * 1.5 - camera.position.x) * 0.05;
-            camera.position.y += (-mouseY * 1.5 - camera.position.y) * 0.05;
-            camera.lookAt(scene.position);
+            shape.rotation.x += 0.001 * Math.sin(elapsedTime);
+            shape.rotation.y += 0.001 * Math.cos(elapsedTime);
 
             renderer.render(scene, camera);
         }
@@ -447,14 +444,25 @@
         toggleButton.setAttribute('aria-label', 'Toggle dark/light mode');
         document.body.appendChild(toggleButton);
 
-        const currentMode = localStorage.getItem('mode');
-        if (currentMode === 'light') {
-            document.body.classList.add('light-mode');
+        const threeMaterial = window.threeShapeMaterial;
+        const threeParticlesMaterial = window.threeParticlesMaterial;
+
+        function applyTheme(isLight) {
+            document.body.classList.toggle('light-mode', isLight);
+            localStorage.setItem('mode', isLight ? 'light' : 'dark');
+            if (threeMaterial) {
+                threeMaterial.color.set(isLight ? 0x000000 : 0xffffff);
+            }
+            if (threeParticlesMaterial) {
+                // Particle color remains blue in both modes
+            }
         }
 
+        const currentMode = localStorage.getItem('mode');
+        applyTheme(currentMode === 'light');
+
         toggleButton.addEventListener('click', () => {
-            document.body.classList.toggle('light-mode');
-            localStorage.setItem('mode', document.body.classList.contains('light-mode') ? 'light' : 'dark');
+            applyTheme(!document.body.classList.contains('light-mode'));
         });
     }
 
