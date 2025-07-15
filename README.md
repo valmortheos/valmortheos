@@ -1,36 +1,31 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Valmortheos - Creative Developer Portfolio
 
-## Getting Started
+This is the repository for my personal portfolio website, showcasing my skills and projects as a creative developer and 3D artist. The site is built with pure HTML, CSS, and JavaScript, and features a variety of modern web technologies and animations.
 
-First, run the development server:
+## ✨ Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+*   **Immersive 3D animations** using Three.js and WebGL.
+*   **Smooth scrolling** with Lenis for a seamless browsing experience.
+*   **Advanced animations** powered by GSAP and ScrollTrigger.
+*   **Responsive design** that looks great on all devices.
+*   **Custom cursor** and magnetic effects for a unique interactive experience.
+*   **Dark/Light mode** toggle for user preference.
+*   **Contact form** with Formspree integration.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🚀 Technologies Used
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+*   **HTML5**
+*   **CSS3**
+*   **JavaScript (ES6+)**
+*   **Three.js**
+*   **GSAP (GreenSock Animation Platform)**
+*   **Lenis**
+*   **Toastify.js**
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🛠️ Getting Started
 
-## Learn More
+To get a local copy up and running, simply open the `index.html` file in your web browser. No installation or build process is required.
 
-To learn more about Next.js, take a look at the following resources:
+## 📄 License
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.

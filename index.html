@@ -4,147 +4,158 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Valmortheos - Creative Developer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hover.css/2.3.1/css/hover-min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div id="loader">
-        <div class="loader-text">Valmortheos</div>
+        <div class="loader__text">Valmortheos</div>
     </div>
 
     <div class="cursor"></div>
     <div class="cursor-follower"></div>
 
-    <header>
-        <nav>
-            <div class="logo hvr-grow">Valmortheos</div>
-            <div class="menu-toggle">
+    <header class="header">
+        <nav class="nav">
+            <div class="nav__logo hvr-grow">Valmortheos</div>
+            <button class="menu-toggle" aria-label="Toggle navigation">
                 <div class="hamburger"></div>
-            </div>
-            <ul class="nav-links">
-                <li><a href="#who-am-i" class="hvr-underline-from-center">Who Am I</a></li>
-                <li><a href="#projects" class="hvr-underline-from-center">Projects</a></li>
-                <li><a href="#testimonials" class="hvr-underline-from-center">Testimonials</a></li>
-                <li><a href="#contact" class="hvr-underline-from-center">Contact</a></li>
+            </button>
+            <ul class="nav__links">
+                <li><a href="#who-am-i" class="nav__link hvr-underline-from-center">Who Am I</a></li>
+                <li><a href="#projects" class="nav__link hvr-underline-from-center">Projects</a></li>
+                <li><a href="#testimonials" class="nav__link hvr-underline-from-center">Testimonials</a></li>
+                <li><a href="#contact" class="nav__link hvr-underline-from-center">Contact</a></li>
             </ul>
         </nav>
     </header>
 
     <div id="three-container"></div>
     <main id="smooth-scroll">
-        <section id="hero">
-            <div class="hero-content">
-                <h1 class="hero-title">Valmortheos</h1>
-                <p class="animate__animated animate__fadeInUp animate__delay-1s">Creative Developer & 3D Artist</p>
+        <section id="hero" class="hero">
+            <div class="hero__content">
+                <h1 class="hero__title">Valmortheos</h1>
+                <p class="hero__subtitle animate__animated animate__fadeInUp animate__delay-1s">Creative Developer & 3D Artist</p>
             </div>
         </section>
 
-        <section id="who-am-i">
-            <h2>Who Am I</h2>
-            <p>I'm a passionate creative developer and 3D artist with a love for building immersive and interactive web experiences. I'm always looking for new ways to push the boundaries of what's possible on the web. My goal is to create digital experiences that are not only functional but also beautiful and engaging.</p>
+        <section id="who-am-i" class="section">
+            <article>
+                <h2 class="section__title">Who Am I</h2>
+                <p>I'm a passionate creative developer and 3D artist with a love for building immersive and interactive web experiences. I'm always looking for new ways to push the boundaries of what's possible on the web. My goal is to create digital experiences that are not only functional but also beautiful and engaging.</p>
+            </article>
         </section>
 
-        <section id="about-me">
-            <h2>About Me</h2>
-            <p>I am a student at SMKN 2 Depok Sleman, majoring in software engineering. I have a deep interest in web development and 3D design, and I am always eager to learn new technologies and improve my skills. I enjoy turning complex problems into simple, beautiful, and intuitive designs. When I'm not coding, you can find me exploring new 3D modeling techniques or contributing to open-source projects.</p>
+        <section id="about-me" class="section">
+            <article>
+                <h2 class="section__title">About Me</h2>
+                <p>I am a student at SMKN 2 Depok Sleman, majoring in software engineering. I have a deep interest in web development and 3D design, and I am always eager to learn new technologies and improve my skills. I enjoy turning complex problems into simple, beautiful, and intuitive designs. When I'm not coding, you can find me exploring new 3D modeling techniques or contributing to open-source projects.</p>
+            </article>
         </section>
 
-        <section id="my-skills">
-            <h2>My Skills</h2>
+        <section id="my-skills" class="section">
+            <h2 class="section__title">My Skills</h2>
             <div class="skills-grid">
-                <div class="skill-card hvr-float">
-                    <h3>Frontend</h3>
+                <article class="skill-card hvr-float">
+                    <h3 class="skill-card__title">Frontend</h3>
                     <p>HTML5, CSS3, JavaScript (ES6+), React, Vue.js, Svelte</p>
-                </div>
-                <div class="skill-card hvr-float">
-                    <h3>Backend</h3>
+                </article>
+                <article class="skill-card hvr-float">
+                    <h3 class="skill-card__title">Backend</h3>
                     <p>Node.js, Express, Python, Django, MongoDB, PostgreSQL</p>
-                </div>
-                <div class="skill-card hvr-float">
-                    <h3>3D Design</h3>
+                </article>
+                <article class="skill-card hvr-float">
+                    <h3 class="skill-card__title">3D Design</h3>
                     <p>Blender, Three.js, WebGL, Substance Painter</p>
-                </div>
-                 <div class="skill-card hvr-float">
-                    <h3>UI/UX Design</h3>
+                </article>
+                 <article class="skill-card hvr-float">
+                    <h3 class="skill-card__title">UI/UX Design</h3>
                     <p>Figma, Adobe XD, Sketch, User Research, Wireframing</p>
-                </div>
+                </article>
             </div>
         </section>
 
-        <section id="projects">
-            <h2>My Projects</h2>
+        <section id="projects" class="section">
+            <h2 class="section__title">My Projects</h2>
             <div class="project-grid">
-                <div class="project-card">
-                    <div class="image-container">
-                        <img src="https://via.placeholder.com/400x250" alt="Project 1" class="project-image">
+                <article class="project-card">
+                    <div class="project-card__image-container">
+                        <img src="https://via.placeholder.com/400x250" alt="Project 1" class="project-card__image">
                     </div>
-                    <h3>Portfolio Website</h3>
+                    <h3 class="project-card__title">Portfolio Website</h3>
                     <p>A personal portfolio website to showcase my skills and projects. Built with HTML, CSS, and JavaScript, and Three.js for 3D graphics. The goal was to create a visually appealing and interactive experience for visitors.</p>
-                    <a href="https://github.com/valmortheos/portfolio" target="_blank" class="hvr-sweep-to-right">View on GitHub</a>
-                </div>
-                <div class="project-card">
-                    <div class="image-container">
-                        <img src="https://via.placeholder.com/400x250" alt="Project 2" class="project-image">
+                    <a href="https://github.com/valmortheos/portfolio" target="_blank" class="project-card__link hvr-sweep-to-right">View on GitHub</a>
+                </article>
+                <article class="project-card">
+                    <div class="project-card__image-container">
+                        <img src="https://via.placeholder.com/400x250" alt="Project 2" class="project-card__image">
                     </div>
-                    <h3>E-commerce Website</h3>
+                    <h3 class="project-card__title">E-commerce Website</h3>
                     <p>A full-stack e-commerce website built with the MERN stack. Features include product listings, shopping cart, user authentication, and payment integration with Stripe. The focus was on creating a seamless and secure shopping experience.</p>
-                    <a href="#" target="_blank" class="hvr-sweep-to-right">View Project</a>
-                </div>
-                <div class="project-card">
-                    <div class="image-container">
-                        <img src="https://via.placeholder.com/400x250" alt="Project 3" class="project-image">
+                    <a href="#" target="_blank" class="project-card__link hvr-sweep-to-right">View Project</a>
+                </article>
+                <article class="project-card">
+                    <div class="project-card__image-container">
+                        <img src="https://via.placeholder.com/400x250" alt="Project 3" class="project-card__image">
                     </div>
-                    <h3>Weather App</h3>
+                    <h3 class="project-card__title">Weather App</h3>
                     <p>A simple weather application that fetches and displays weather data from the OpenWeatherMap API. Built with React and styled with Styled Components, it provides real-time weather information for any city in the world.</p>
-                    <a href="#" target="_blank" class="hvr-sweep-to-right">View Project</a>
-                </div>
-                 <div class="project-card">
-                    <div class="image-container">
-                        <img src="https://via.placeholder.com/400x250" alt="Project 4" class="project-image">
+                    <a href="#" target="_blank" class="project-card__link hvr-sweep-to-right">View Project</a>
+                </article>
+                 <article class="project-card">
+                    <div class="project-card__image-container">
+                        <img src="https://via.placeholder.com/400x250" alt="Project 4" class="project-card__image">
                     </div>
-                    <h3>3D Product Visualizer</h3>
+                    <h3 class="project-card__title">3D Product Visualizer</h3>
                     <p>An interactive 3D product visualizer built with Three.js and WebGL. Users can customize product colors, materials, and parts in real-time. This project demonstrates the power of 3D graphics on the web for e-commerce.</p>
-                    <a href="#" target="_blank" class="hvr-sweep-to-right">View Project</a>
-                </div>
+                    <a href="#" target="_blank" class="project-card__link hvr-sweep-to-right">View Project</a>
+                </article>
             </div>
         </section>
 
-        <section id="testimonials">
-            <h2>Testimonials</h2>
+        <section id="testimonials" class="section">
+            <h2 class="section__title">Testimonials</h2>
             <div class="testimonial-slider">
-                <div class="testimonial-card">
-                    <p>"Valmortheos is a highly skilled developer with a great eye for detail. He was able to take our vision and turn it into a beautiful and functional website. We would highly recommend him to anyone looking for a creative and talented developer."</p>
-                    <h4>- John Doe, CEO of Example Inc.</h4>
-                </div>
-                <div class="testimonial-card">
-                    <p>"Working with Valmortheos was a pleasure. He is a great communicator and was always willing to go the extra mile to make sure we were happy with the final product. We are thrilled with the results and would not hesitate to work with him again."</p>
-                    <h4>- Jane Smith, Marketing Manager at Example Corp.</h4>
-                </div>
-                 <div class="testimonial-card">
-                    <p>"The 3D visualizations that Valmortheos created for us were simply stunning. He has a deep understanding of 3D design and was able to create a truly immersive experience for our customers. We have seen a significant increase in engagement since launching the new feature."</p>
-                    <h4>- Bob Johnson, Head of Product at Example Co.</h4>
-                </div>
+                <article class="testimonial-card">
+                    <p class="testimonial-card__text">"Valmortheos is a highly skilled developer with a great eye for detail. He was able to take our vision and turn it into a beautiful and functional website. We would highly recommend him to anyone looking for a creative and talented developer."</p>
+                    <h4 class="testimonial-card__author">- John Doe, CEO of Example Inc.</h4>
+                </article>
+                <article class="testimonial-card">
+                    <p class="testimonial-card__text">"Working with Valmortheos was a pleasure. He is a great communicator and was always willing to go the extra mile to make sure we were happy with the final product. We are thrilled with the results and would not hesitate to work with him again."</p>
+                    <h4 class="testimonial-card__author">- Jane Smith, Marketing Manager at Example Corp.</h4>
+                </article>
+                 <article class="testimonial-card">
+                    <p class="testimonial-card__text">"The 3D visualizations that Valmortheos created for us were simply stunning. He has a deep understanding of 3D design and was able to create a truly immersive experience for our customers. We have seen a significant increase in engagement since launching the new feature."</p>
+                    <h4 class="testimonial-card__author">- Bob Johnson, Head of Product at Example Co.</h4>
+                </article>
             </div>
         </section>
 
-        <section id="contact">
-            <h2>Contact Me</h2>
+        <section id="contact" class="section">
+            <h2 class="section__title">Contact Me</h2>
             <p>I'm currently available for freelance work and open to discussing new projects. If you have a project in mind, or just want to say hello, feel free to send me a message.</p>
-            <form action="https://formspree.io/f/your_form_id" method="POST">
-                <input type="text" name="name" placeholder="Your Name" required>
-                <input type="email" name="email" placeholder="Your Email" required>
-                <textarea name="message" placeholder="Your Message" required></textarea>
-                <button type="submit" class="hvr-sweep-to-right">Send Message</button>
+            <form action="https://formspree.io/f/your_form_id" method="POST" class="contact-form">
+                <label for="name" class="sr-only">Your Name</label>
+                <input type="text" id="name" name="name" placeholder="Your Name" class="contact-form__input" required>
+                <label for="email" class="sr-only">Your Email</label>
+                <input type="email" id="email" name="email" placeholder="Your Email" class="contact-form__input" required>
+                <label for="message" class="sr-only">Your Message</label>
+                <textarea id="message" name="message" placeholder="Your Message" class="contact-form__textarea" required></textarea>
+                <button type="submit" class="btn hvr-sweep-to-right">Send Message</button>
             </form>
         </section>
     </main>
 
-    <a href="#hero" class="back-to-top hvr-icon-up"></a>
+    <a href="#hero" class="back-to-top hvr-icon-up" aria-label="Back to top"></a>
 
-    <footer>
-        <div class="footer-bottom">
-            &copy; 2025 Valmortheos. All rights reserved.
+    <footer class="footer">
+        <div class="footer__bottom">
+            <p>&copy; 2025 Valmortheos. All rights reserved.</p>
         </div>
     </footer>
 
@@ -154,6 +165,7 @@
     <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.27/bundled/lenis.min.js"></script>
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vivus@0.4.5/dist/vivus.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     <script type="module" src="script.js"></script>
 </body>
 </html>

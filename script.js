@@ -1,403 +1,467 @@
-// Lenis smooth scroll
-const lenis = new Lenis({
-    duration: 1.2,
-    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-});
+(function() {
+    'use strict';
 
-function raf(time) {
-    lenis.raf(time);
-    requestAnimationFrame(raf);
-}
+    const config = {
+        isMobile: /iPhone|iPad|iPod|Android/i.test(navigator.userAgent),
+        selectors: {
+            loader: '#loader',
+            loaderText: '.loader__text',
+            cursor: '.cursor',
+            cursorFollower: '.cursor-follower',
+            linksAndButtons: 'a, button',
+            magneticElements: 'button, .project-card__link',
+            menuToggle: '.menu-toggle',
+            navLinks: '.nav__links',
+            header: '.header',
+            navLinksAnchors: '.nav__links a[href^="#"]',
+            backToTop: '.back-to-top',
+            sectionTitles: '.section__title',
+            heroTitle: '.hero__title',
+            heroSubtitle: '.hero__subtitle',
+            projectImages: '.project-card__image',
+            sections: 'section',
+            skillCards: '.skill-card',
+            projectCards: '.project-card',
+            testimonialCards: '.testimonial-card',
+            threeContainer: '#three-container',
+            tiltElements: '.project-card',
+            toggleModeButton: '.toggle-mode',
+            contactForm: '#contact .contact-form'
+        },
+        animation: {
+            duration: 1.5,
+            delay: 2,
+            stagger: 0.05,
+            ease: 'power3.out'
+        },
+        lenis: {
+            duration: 1.2,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        },
+        testimonialInterval: 5000
+    };
 
-requestAnimationFrame(raf);
+    function initLenis() {
+        const lenis = new Lenis(config.lenis);
+        function raf(time) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
+        return lenis;
+    }
 
-// Loader animation
-document.addEventListener("DOMContentLoaded", function() {
-    const loaderText = document.querySelector('.loader-text');
-    if (loaderText) {
-        const text = loaderText.textContent;
-        loaderText.innerHTML = '';
-        text.split('').forEach((char, i) => {
-            const span = document.createElement('span');
-            span.textContent = char;
-            span.style.animationDelay = `${i * 0.1}s`;
-            loaderText.appendChild(span);
+    function initLoader() {
+        const loaderText = document.querySelector(config.selectors.loaderText);
+        if (loaderText) {
+            const text = loaderText.textContent;
+            loaderText.innerHTML = '';
+            text.split('').forEach((char, i) => {
+                const span = document.createElement('span');
+                span.textContent = char;
+                span.style.animationDelay = `${i * 0.1}s`;
+                loaderText.appendChild(span);
+            });
+        }
+
+        const loader = document.querySelector(config.selectors.loader);
+        if (loader) {
+            gsap.to(loader, {
+                duration: config.animation.duration,
+                opacity: 0,
+                zIndex: -1,
+                delay: config.animation.delay,
+                onComplete: () => {
+                    document.body.style.overflowY = 'auto';
+                }
+            });
+        }
+    }
+
+    function initCursor() {
+        if (config.isMobile) return;
+
+        const cursor = document.querySelector(config.selectors.cursor);
+        const cursorFollower = document.querySelector(config.selectors.cursorFollower);
+        const links = document.querySelectorAll(config.selectors.linksAndButtons);
+
+        document.addEventListener('mousemove', (e) => {
+            gsap.to(cursor, { duration: 0.3, x: e.clientX, y: e.clientY });
+            gsap.to(cursorFollower, { duration: 0.8, x: e.clientX, y: e.clientY });
+        });
+
+        links.forEach(link => {
+            link.addEventListener('mouseenter', () => {
+                gsap.to(cursor, { scale: 4 });
+                cursor.classList.add('cursor--hover');
+            });
+            link.addEventListener('mouseleave', () => {
+                gsap.to(cursor, { scale: 1 });
+                cursor.classList.remove('cursor--hover');
+            });
         });
     }
 
-    const loader = document.getElementById('loader');
-    if (loader) {
-        gsap.to(loader, {
-            duration: 1.5,
-            opacity: 0,
-            zIndex: -1,
-            delay: 2,
-            onComplete: () => {
-                document.body.style.overflowY = 'auto';
+    function initMagneticEffect() {
+        if (config.isMobile) return;
+
+        document.querySelectorAll(config.selectors.magneticElements).forEach(button => {
+            button.addEventListener('mousemove', (e) => {
+                const { offsetX, offsetY, target } = e;
+                const { clientWidth, clientHeight } = target;
+                const x = (offsetX / clientWidth) - 0.5;
+                const y = (offsetY / clientHeight) - 0.5;
+                gsap.to(target, {
+                    x: x * 20,
+                    y: y * 20,
+                    duration: 0.5,
+                    ease: 'power2.out',
+                });
+            });
+
+            button.addEventListener('mouseleave', () => {
+                gsap.to(button, {
+                    x: 0,
+                    y: 0,
+                    duration: 0.5,
+                    ease: 'power2.out',
+                });
+            });
+        });
+    }
+
+    function initMobileMenu(lenis) {
+        const menuToggle = document.querySelector(config.selectors.menuToggle);
+        const navLinks = document.querySelector(config.selectors.navLinks);
+
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('nav__links--active');
+            menuToggle.classList.toggle('menu-toggle--active');
+        });
+
+        document.querySelectorAll(config.selectors.navLinksAnchors).forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                navLinks.classList.remove('nav__links--active');
+                menuToggle.classList.remove('menu-toggle--active');
+                lenis.scrollTo(this.getAttribute('href'));
+            });
+        });
+    }
+
+    function initHeaderScroll() {
+        const header = document.querySelector(config.selectors.header);
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('header--scrolled');
+            } else {
+                header.classList.remove('header--scrolled');
             }
         });
     }
-});
 
-
-// Custom cursor
-if (window.innerWidth > 768) {
-    const cursor = document.querySelector('.cursor');
-    const cursorFollower = document.querySelector('.cursor-follower');
-    const links = document.querySelectorAll('a, button');
-
-    document.addEventListener('mousemove', (e) => {
-        gsap.to(cursor, { duration: 0.3, x: e.clientX, y: e.clientY });
-        gsap.to(cursorFollower, { duration: 0.8, x: e.clientX, y: e.clientY });
-    });
-
-    links.forEach(link => {
-        link.addEventListener('mouseenter', () => {
-            gsap.to(cursor, { scale: 4 });
-            cursor.classList.add('hover');
-        });
-        link.addEventListener('mouseleave', () => {
-            gsap.to(cursor, { scale: 1 });
-            cursor.classList.remove('hover');
-        });
-    });
-}
-
-
-// Magnetic effect on buttons
-document.querySelectorAll('button, .project-card a').forEach(button => {
-    button.addEventListener('mousemove', (e) => {
-        const { offsetX, offsetY, target } = e;
-        const { clientWidth, clientHeight } = target;
-        const x = (offsetX / clientWidth) - 0.5;
-        const y = (offsetY / clientHeight) - 0.5;
-        gsap.to(target, {
-            x: x * 20,
-            y: y * 20,
-            duration: 0.5,
-            ease: 'power2.out',
-        });
-    });
-
-    button.addEventListener('mouseleave', () => {
-        gsap.to(button, {
-            x: 0,
-            y: 0,
-            duration: 0.5,
-            ease: 'power2.out',
-        });
-    });
-});
-
-// Mobile menu toggle
-const menuToggle = document.querySelector('.menu-toggle');
-const navLinks = document.querySelector('.nav-links');
-const header = document.querySelector('header');
-
-menuToggle.addEventListener('click', () => {
-    navLinks.classList.toggle('active');
-    menuToggle.classList.toggle('active');
-});
-
-// Smooth scrolling for navigation links
-document.querySelectorAll('.nav-links a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        navLinks.classList.remove('active');
-        menuToggle.classList.remove('active');
-        lenis.scrollTo(this.getAttribute('href'));
-    });
-});
-
-// Header scroll effect
-window.addEventListener('scroll', () => {
-    if (window.scrollY > 50) {
-        header.classList.add('scrolled');
-    } else {
-        header.classList.remove('scrolled');
-    }
-});
-
-// Back to top button
-const backToTopButton = document.querySelector('.back-to-top');
-if (backToTopButton) {
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 300) {
-            backToTopButton.classList.add('visible');
-        } else {
-            backToTopButton.classList.remove('visible');
+    function initBackToTop(lenis) {
+        const backToTopButton = document.querySelector(config.selectors.backToTop);
+        if (backToTopButton) {
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 300) {
+                    backToTopButton.classList.add('back-to-top--visible');
+                } else {
+                    backToTopButton.classList.remove('back-to-top--visible');
+                }
+            });
+            backToTopButton.addEventListener('click', (e) => {
+                e.preventDefault();
+                lenis.scrollTo('#hero');
+            });
         }
-    });
-    backToTopButton.addEventListener('click', (e) => {
-        e.preventDefault();
-        lenis.scrollTo('#hero');
-    });
-}
+    }
 
+    function initGsapAnimations() {
+        gsap.registerPlugin(ScrollTrigger);
 
-// GSAP Animations
-gsap.registerPlugin(ScrollTrigger);
+        document.querySelectorAll(config.selectors.sectionTitles).forEach(title => {
+            const text = title.textContent;
+            title.innerHTML = '';
+            text.split('').forEach(char => {
+                const span = document.createElement('span');
+                span.textContent = char;
+                span.className = 'char';
+                title.appendChild(span);
+            });
 
-// Text reveal animation for section titles
-document.querySelectorAll('h2').forEach(title => {
-    const text = title.textContent;
-    title.innerHTML = '';
-    text.split('').forEach(char => {
-        const span = document.createElement('span');
-        span.textContent = char;
-        span.className = 'char';
-        title.appendChild(span);
-    });
+            gsap.from(title.querySelectorAll('.char'), {
+                scrollTrigger: {
+                    trigger: title,
+                    start: 'top 80%',
+                    end: 'bottom 20%',
+                    toggleActions: 'play none none reverse',
+                },
+                y: '100%',
+                stagger: config.animation.stagger,
+                duration: 1,
+                ease: config.animation.ease,
+            });
+        });
 
-    gsap.from(title.querySelectorAll('.char'), {
-        scrollTrigger: {
-            trigger: title,
-            start: 'top 80%',
-            end: 'bottom 20%',
-            toggleActions: 'play none none reverse',
-        },
-        y: '100%',
-        stagger: 0.05,
-        duration: 1,
-        ease: 'power3.out',
-    });
-});
+        gsap.from(config.selectors.heroTitle, { duration: 1, y: 100, opacity: 0, delay: 2.5, ease: config.animation.ease });
+        gsap.from(config.selectors.heroSubtitle, { duration: 1, y: 100, opacity: 0, delay: 2.8, ease: config.animation.ease });
 
+        gsap.utils.toArray(config.selectors.projectImages).forEach(image => {
+            gsap.to(image, {
+                scrollTrigger: {
+                    trigger: image,
+                    scrub: true,
+                },
+                y: -100,
+                ease: 'none',
+            });
+        });
 
-// Hero animation
-gsap.from('.hero-title', { duration: 1, y: 100, opacity: 0, delay: 2.5, ease: 'power3.out' });
-gsap.from('.hero-content p', { duration: 1, y: 100, opacity: 0, delay: 2.8, ease: 'power3.out' });
+        document.querySelectorAll(config.selectors.sections).forEach((section) => {
+            gsap.from(section, {
+                scrollTrigger: {
+                    trigger: section,
+                    start: 'top 80%',
+                    end: 'bottom 20%',
+                    toggleActions: 'play none none reverse',
+                },
+                opacity: 0,
+                y: 100,
+                duration: config.animation.duration,
+                ease: config.animation.ease,
+            });
+        });
 
-// Image distortion effect on scroll
-gsap.utils.toArray('.project-image').forEach(image => {
-    gsap.to(image, {
-        scrollTrigger: {
-            trigger: image,
-            scrub: true,
-        },
-        y: -100,
-        ease: 'none',
-    });
-});
+        gsap.from(config.selectors.skillCards, {
+            scrollTrigger: {
+                trigger: '.skills-grid',
+                start: 'top 80%',
+            },
+            opacity: 0,
+            y: 50,
+            duration: 0.5,
+            stagger: 0.2,
+        });
 
-// Section animations
-document.querySelectorAll('section').forEach((section) => {
-    gsap.from(section, {
-        scrollTrigger: {
-            trigger: section,
-            start: 'top 80%',
-            end: 'bottom 20%',
-            toggleActions: 'play none none reverse',
-        },
-        opacity: 0,
-        y: 100,
-        duration: 1.5,
-        ease: 'power3.out',
-    });
-});
+        gsap.from(config.selectors.projectCards, {
+            scrollTrigger: {
+                trigger: '.project-grid',
+                start: 'top 80%',
+            },
+            opacity: 0,
+            y: 50,
+            duration: 0.5,
+            stagger: 0.2,
+        });
+    }
 
-// Skill card animations
-gsap.from('.skill-card', {
-    scrollTrigger: {
-        trigger: '.skills-grid',
-        start: 'top 80%',
-    },
-    opacity: 0,
-    y: 50,
-    duration: 0.5,
-    stagger: 0.2,
-});
+    function initTestimonialSlider() {
+        const testimonials = document.querySelectorAll(config.selectors.testimonialCards);
+        if (testimonials.length === 0) return;
+        let currentTestimonial = 0;
 
-// Project card animations
-gsap.from('.project-card', {
-    scrollTrigger: {
-        trigger: '.project-grid',
-        start: 'top 80%',
-    },
-    opacity: 0,
-    y: 50,
-    duration: 0.5,
-    stagger: 0.2,
-});
-
-// Testimonial slider
-const testimonials = document.querySelectorAll('.testimonial-card');
-let currentTestimonial = 0;
-
-function showTestimonial(index) {
-    testimonials.forEach((testimonial, i) => {
-        testimonial.classList.remove('active');
-        if (i === index) {
-            testimonial.classList.add('active');
+        function showTestimonial(index) {
+            testimonials.forEach((testimonial, i) => {
+                testimonial.classList.remove('testimonial-card--active');
+                if (i === index) {
+                    testimonial.classList.add('testimonial-card--active');
+                }
+            });
         }
-    });
-}
+        showTestimonial(currentTestimonial)
 
-if (testimonials.length > 0) {
-    setInterval(() => {
-        currentTestimonial = (currentTestimonial + 1) % testimonials.length;
-        showTestimonial(currentTestimonial);
-    }, 5000);
-}
-
-
-// Three.js scene setup
-if (window.innerWidth > 768) {
-    const threeContainer = document.getElementById('three-container');
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setPixelRatio(window.devicePixelRatio);
-    threeContainer.appendChild(renderer.domElement);
-
-    // Create a more complex 3D object
-    const geometry = new THREE.TorusKnotGeometry(1.2, 0.4, 150, 20);
-    const material = new THREE.MeshStandardMaterial({
-        color: 0x007BFF,
-        roughness: 0.1,
-        metalness: 0.9,
-        emissive: 0x111111,
-    });
-    const shape = new THREE.Mesh(geometry, material);
-    scene.add(shape);
-
-    // Add lighting
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
-    scene.add(ambientLight);
-    const pointLight = new THREE.PointLight(0xffffff, 3);
-    pointLight.position.set(5, 5, 5);
-    scene.add(pointLight);
-    const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
-    directionalLight.position.set(-5, -5, -5);
-    scene.add(directionalLight);
-
-    camera.position.z = 5;
-
-    // Particles setup
-    const particlesGeometry = new THREE.BufferGeometry();
-    const particlesCount = 5000;
-    const posArray = new Float32Array(particlesCount * 3);
-
-    for (let i = 0; i < particlesCount * 3; i++) {
-        posArray[i] = (Math.random() - 0.5) * 20;
+        setInterval(() => {
+            currentTestimonial = (currentTestimonial + 1) % testimonials.length;
+            showTestimonial(currentTestimonial);
+        }, config.testimonialInterval);
     }
 
-    particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+    function initThreeJs() {
+        if (config.isMobile) return;
 
-    const particlesMaterial = new THREE.PointsMaterial({
-        size: 0.01,
-        color: 0x6C757D,
-        transparent: true,
-        blending: THREE.AdditiveBlending,
-        sizeAttenuation: false,
-    });
+        const threeContainer = document.getElementById(config.selectors.threeContainer.replace('#', ''));
+        if (!threeContainer) return;
 
-    const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
-    scene.add(particlesMesh);
-
-    // Mouse movement interaction
-    let mouseX = 0, mouseY = 0;
-    document.addEventListener('mousemove', (event) => {
-        mouseX = (event.clientX / window.innerWidth) * 2 - 1;
-        mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
-    });
-
-    // Animation loop
-    const clock = new THREE.Clock();
-    function animate() {
-        requestAnimationFrame(animate);
-        const elapsedTime = clock.getElapsedTime();
-
-        // Animate shape
-        shape.rotation.x = 0.1 * elapsedTime;
-        shape.rotation.y = 0.1 * elapsedTime;
-
-        // Animate particles
-        particlesMesh.rotation.y = -0.02 * elapsedTime;
-
-        // Mouse follow effect
-        camera.position.x += (mouseX * 1.5 - camera.position.x) * 0.05;
-        camera.position.y += (-mouseY * 1.5 - camera.position.y) * 0.05;
-        camera.lookAt(scene.position);
-
-        renderer.render(scene, camera);
-    }
-    animate();
-
-    // Handle window resize
-    window.addEventListener('resize', () => {
-        camera.aspect = window.innerWidth / window.innerHeight;
-        camera.updateProjectionMatrix();
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
         renderer.setSize(window.innerWidth, window.innerHeight);
-    });
-}
+        renderer.setPixelRatio(window.devicePixelRatio);
+        threeContainer.appendChild(renderer.domElement);
 
-
-// Tilt effect for project cards
-const tiltElements = document.querySelectorAll('.project-card');
-
-tiltElements.forEach(el => {
-    el.addEventListener('mousemove', (e) => {
-        const { left, top, width, height } = el.getBoundingClientRect();
-        const x = (e.clientX - left) / width;
-        const y = (e.clientY - top) / height;
-        const rotateX = (y - 0.5) * -20;
-        const rotateY = (x - 0.5) * 20;
-        gsap.to(el, {
-            rotationX: rotateX,
-            rotationY: rotateY,
-            scale: 1.05,
-            duration: 0.5,
-            ease: 'power2.out',
+        const geometry = new THREE.TorusKnotGeometry(1.2, 0.4, 150, 20);
+        const material = new THREE.MeshStandardMaterial({
+            color: 0x007BFF,
+            roughness: 0.1,
+            metalness: 0.9,
+            emissive: 0x111111,
         });
-    });
+        const shape = new THREE.Mesh(geometry, material);
+        scene.add(shape);
 
-    el.addEventListener('mouseleave', () => {
-        gsap.to(el, {
-            rotationX: 0,
-            rotationY: 0,
-            scale: 1,
-            duration: 0.5,
-            ease: 'power2.out',
-        });
-    });
-});
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+        scene.add(ambientLight);
+        const pointLight = new THREE.PointLight(0xffffff, 3);
+        pointLight.position.set(5, 5, 5);
+        scene.add(pointLight);
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+        directionalLight.position.set(-5, -5, -5);
+        scene.add(directionalLight);
 
-// Dark/Light mode toggle
-const toggleButton = document.createElement('button');
-toggleButton.textContent = 'Toggle Mode';
-toggleButton.classList.add('toggle-mode');
-toggleButton.setAttribute('aria-label', 'Toggle dark/light mode');
-document.body.appendChild(toggleButton);
+        camera.position.z = 5;
 
-const currentMode = localStorage.getItem('mode');
-if (currentMode === 'light') {
-    document.body.classList.add('light-mode');
-}
+        const particlesGeometry = new THREE.BufferGeometry();
+        const particlesCount = 5000;
+        const posArray = new Float32Array(particlesCount * 3);
 
-toggleButton.addEventListener('click', () => {
-    document.body.classList.toggle('light-mode');
-    localStorage.setItem('mode', document.body.classList.contains('light-mode') ? 'light' : 'dark');
-});
-
-// Form submission handling
-const form = document.querySelector('#contact form');
-form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const formData = new FormData(form);
-    const response = await fetch(form.action, {
-        method: 'POST',
-        body: formData,
-        headers: {
-            'Accept': 'application/json'
+        for (let i = 0; i < particlesCount * 3; i++) {
+            posArray[i] = (Math.random() - 0.5) * 20;
         }
+
+        particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+
+        const particlesMaterial = new THREE.PointsMaterial({
+            size: 0.01,
+            color: 0x6C757D,
+            transparent: true,
+            blending: THREE.AdditiveBlending,
+            sizeAttenuation: false,
+        });
+
+        const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
+        scene.add(particlesMesh);
+
+        let mouseX = 0, mouseY = 0;
+        document.addEventListener('mousemove', (event) => {
+            mouseX = (event.clientX / window.innerWidth) * 2 - 1;
+            mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
+        });
+
+        const clock = new THREE.Clock();
+        function animate() {
+            requestAnimationFrame(animate);
+            const elapsedTime = clock.getElapsedTime();
+
+            shape.rotation.x = 0.1 * elapsedTime;
+            shape.rotation.y = 0.1 * elapsedTime;
+
+            particlesMesh.rotation.y = -0.02 * elapsedTime;
+
+            camera.position.x += (mouseX * 1.5 - camera.position.x) * 0.05;
+            camera.position.y += (-mouseY * 1.5 - camera.position.y) * 0.05;
+            camera.lookAt(scene.position);
+
+            renderer.render(scene, camera);
+        }
+        animate();
+
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+    }
+
+    function initTiltEffect() {
+        if (config.isMobile) return;
+
+        const tiltElements = document.querySelectorAll(config.selectors.tiltElements);
+        tiltElements.forEach(el => {
+            el.addEventListener('mousemove', (e) => {
+                const { left, top, width, height } = el.getBoundingClientRect();
+                const x = (e.clientX - left) / width;
+                const y = (e.clientY - top) / height;
+                const rotateX = (y - 0.5) * -20;
+                const rotateY = (x - 0.5) * 20;
+                gsap.to(el, {
+                    rotationX: rotateX,
+                    rotationY: rotateY,
+                    scale: 1.05,
+                    duration: 0.5,
+                    ease: 'power2.out',
+                });
+            });
+
+            el.addEventListener('mouseleave', () => {
+                gsap.to(el, {
+                    rotationX: 0,
+                    rotationY: 0,
+                    scale: 1,
+                    duration: 0.5,
+                    ease: 'power2.out',
+                });
+            });
+        });
+    }
+
+    function initDarkModeToggle() {
+        const toggleButton = document.createElement('button');
+        toggleButton.textContent = 'Toggle Mode';
+        toggleButton.classList.add('toggle-mode');
+        toggleButton.setAttribute('aria-label', 'Toggle dark/light mode');
+        document.body.appendChild(toggleButton);
+
+        const currentMode = localStorage.getItem('mode');
+        if (currentMode === 'light') {
+            document.body.classList.add('light-mode');
+        }
+
+        toggleButton.addEventListener('click', () => {
+            document.body.classList.toggle('light-mode');
+            localStorage.setItem('mode', document.body.classList.contains('light-mode') ? 'light' : 'dark');
+        });
+    }
+
+    function initContactForm() {
+        const form = document.querySelector(config.selectors.contactForm);
+        if (!form) return;
+        const submitButton = form.querySelector('button[type="submit"]');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            submitButton.disabled = true;
+            submitButton.textContent = 'Sending...';
+
+            try {
+                const formData = new FormData(form);
+                const response = await fetch(form.action, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+
+                if (response.ok) {
+                    Toastify({ text: "Message sent successfully!", duration: 3000, style: { background: "linear-gradient(to right, #00b09b, #96c93d)" } }).showToast();
+                    form.reset();
+                } else {
+                    throw new Error('Failed to send message');
+                }
+            } catch (error) {
+                Toastify({ text: "Failed to send message. Please try again.", duration: 3000, style: { background: "linear-gradient(to right, #ff5f6d, #ffc371)" } }).showToast();
+            } finally {
+                submitButton.disabled = false;
+                submitButton.textContent = 'Send Message';
+            }
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const lenis = initLenis();
+        initLoader();
+        initCursor();
+        initMagneticEffect();
+        initMobileMenu(lenis);
+        initHeaderScroll();
+        initBackToTop(lenis);
+        initGsapAnimations();
+        initTestimonialSlider();
+        initThreeJs();
+        initTiltEffect();
+        initDarkModeToggle();
+        initContactForm();
     });
 
-    if (response.ok) {
-        Toastify({ text: "Message sent successfully!", duration: 3000 }).showToast();
-        form.reset();
-    } else {
-        Toastify({ text: "Failed to send message.", duration: 3000, style: { background: "linear-gradient(to right, #ff5f6d, #ffc371)" } }).showToast();
-    }
-});
+})();
