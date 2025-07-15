@@ -254,6 +254,51 @@
             duration: 0.5,
             stagger: 0.2,
         });
+
+        gsap.from('.timeline__item', {
+            scrollTrigger: {
+                trigger: '.timeline',
+                start: 'top 80%',
+            },
+            opacity: 0,
+            y: 100,
+            stagger: 0.3,
+            duration: 1,
+            ease: config.animation.ease,
+        });
+
+        gsap.from('.workflow-step', {
+            scrollTrigger: {
+                trigger: '.workflow-grid',
+                start: 'top 80%',
+            },
+            opacity: 0,
+            y: 50,
+            stagger: 0.2,
+            duration: 0.5,
+        });
+
+        gsap.from('.tech-card', {
+            scrollTrigger: {
+                trigger: '.tech-stack-grid',
+                start: 'top 80%',
+            },
+            opacity: 0,
+            y: 50,
+            stagger: 0.1,
+            duration: 0.5,
+        });
+
+        gsap.to('.timeline', {
+            scrollTrigger: {
+                trigger: '.timeline',
+                start: 'top center',
+                end: 'bottom center',
+                scrub: true,
+            },
+            y: -100,
+            ease: 'none',
+        });
     }
 
     function initTestimonialSlider() {
