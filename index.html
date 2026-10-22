@@ -20,13 +20,15 @@
 
     <!-- HERO -->
     <header class="hero">
-      <div class="coin" role="button" tabindex="0" aria-label="Avatar Valmortheos — klik untuk membalik">
-        <div class="coin-inner">
-          <div class="coin-face coin-front">
-            <img src="foto.jpg" alt="Foto profil Valmortheos" onerror="this.style.display='none'" />
-          </div>
-          <div class="coin-face coin-back" aria-hidden="true">
-            <span>VM</span>
+      <div class="coin-wrap">
+        <div class="coin" role="button" tabindex="0" aria-label="Avatar Valmortheos — klik untuk membalik">
+          <div class="coin-inner">
+            <div class="coin-face coin-front">
+              <img src="foto.jpg" alt="Foto profil Valmortheos" onerror="this.style.display='none'" />
+            </div>
+            <div class="coin-face coin-back" aria-hidden="true">
+              <img src="foto2.jpg" alt="" onerror="this.style.display='none'" />
+            </div>
           </div>
         </div>
       </div>
@@ -116,9 +118,17 @@
     </section>
 
     <footer class="footer reveal">
-      <p>© 2025 Valmortheos</p>
+      <p>© 2026 Valmortheos</p>
     </footer>
   </main>
+
+  <!-- Background music -->
+  <audio id="bgm" loop preload="auto">
+    <source src="music.mp3" type="audio/mpeg" />
+  </audio>
+  <button id="music-toggle" class="music-toggle" aria-label="Aktifkan musik" aria-pressed="false">
+    <span aria-hidden="true">♪</span>
+  </button>
 
   <script src="script.js"></script>
 </body>
